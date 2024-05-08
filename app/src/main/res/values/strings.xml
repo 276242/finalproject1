@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">maddb test app 2</string>
+    <string name="err_empty_input_meds_setup">"Password doesn't match"</string>
+    <string name="err_msg_enter_name">Please enter your name</string>
+    <string name="err_msg_enter_email">Please enter your E-mail</string>
+    <string name="err_msg_enter_password">Please enter your password</string>
+    <string name="err_msg_password_too_short">Password must be at least 8 characters long</string>
+    <string name="err_msg_no_uppercase">Password must contain at least one uppercase letter</string>
+    <string name="err_msg_no_digit">Password must contain at least one digit</string>
+    <string name="err_msg_enter_rep_password">Please confirm your password</string>
+    <string name="err_msg_password_mismatch">"Password doesn't match"</string>
+    <string name="register_success">You have successfully registered</string>
+</resources>

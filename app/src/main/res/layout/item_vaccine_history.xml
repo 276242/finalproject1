@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="187dp"
+        android:background="@color/white">
+
+
+        <TextView
+            android:id="@+id/vaccDateAdmtv"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="7dp"
+            android:gravity="center_vertical"
+            android:text="Vaccine date administered"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/doseNumbertv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/doseNumbertv"
+            android:layout_width="129dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="245dp"
+            android:layout_marginBottom="23dp"
+            android:gravity="center_vertical"
+            android:text="Dose nr"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vaccDateAdmtv" />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="106dp"
+            android:layout_marginBottom="27dp"
+            android:text="EDIT"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="62dp"
+            android:layout_marginBottom="27dp"
+            android:text="DELETE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnEdit" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
