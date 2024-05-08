@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.example.maddbtestapp2.BaseActivity
+import com.example.maddbtestapp2.MainActivity
 import com.example.maddbtestapp2.R
 import com.google.firebase.auth.FirebaseAuth
 
