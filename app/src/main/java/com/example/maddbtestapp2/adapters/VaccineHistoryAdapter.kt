@@ -39,7 +39,7 @@ class VaccineHistoryAdapter(private val items: List<VaccineHistoryItem>) :
         }
 
         holder.deleteButton.setOnClickListener {
-            items.remoeAt(position)
+            items.removeAt(position)
             notifyItemRemoved(position)
         }
     }
