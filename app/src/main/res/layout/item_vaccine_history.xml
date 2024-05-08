@@ -14,7 +14,7 @@
 
 
         <TextView
-            android:id="@+id/vaccDateAdmtv"
+            android:id="@+id/vaccNametv"
             android:layout_width="300dp"
             android:layout_height="35dp"
             android:layout_marginTop="26dp"
@@ -24,13 +24,13 @@
             android:text="Vaccine date administered"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/doseNumbertv"
+            app:layout_constraintBottom_toTopOf="@+id/nextDosetv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/doseNumbertv"
+            android:id="@+id/nextDosetv"
             android:layout_width="129dp"
             android:layout_height="21dp"
             android:layout_marginStart="21dp"
@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btnEdit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vaccDateAdmtv" />
+            app:layout_constraintTop_toBottomOf="@+id/vaccNametv" />
 
         <Button
             android:id="@+id/btnEdit"

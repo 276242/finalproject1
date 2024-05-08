@@ -14,7 +14,7 @@
 
 
         <TextView
-            android:id="@+id/vaccDateAdmtv"
+            android:id="@+id/vaccNametv"
             android:layout_width="242dp"
             android:layout_height="35dp"
             android:layout_marginTop="26dp"
@@ -24,13 +24,13 @@
             android:text="Vaccine name"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/doseNumbertv"
+            app:layout_constraintBottom_toTopOf="@+id/nextDosetv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.2" />
 
         <TextView
-            android:id="@+id/doseNumbertv"
+            android:id="@+id/nextDosetv"
             android:layout_width="216dp"
             android:layout_height="49dp"
             android:layout_marginStart="22dp"
@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vaccDateAdmtv" />
+            app:layout_constraintTop_toBottomOf="@+id/vaccNametv" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -55,7 +55,7 @@
             android:layout_marginBottom="46dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/vaccDateAdmtv"
+            app:layout_constraintStart_toEndOf="@+id/vaccNametv"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/sym_action_call" />
 

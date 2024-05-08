@@ -1,5 +1,6 @@
 package com.example.maddbtestapp2
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,141 +12,82 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.FragmentContainerView
-import com.example.myapplicationmad.firestore.FireStoreClass
-import com.example.myapplicationmad.firestore.Medication
-import com.example.myapplicationmad.fragments.NotificationsFragment
-import com.google.firebase.auth.FirebaseAuth
+import java.util.Calendar
+import java.util.Date
 
 class AddNewVaccActivity : BaseActivity() {
 
-    private lateinit var inputMedName: EditText
-    private lateinit var inputDosage: EditText
-    private lateinit var unitSpinner: Spinner
-    private lateinit var inputNotes: EditText
-    private lateinit var setUpNotifButton: Button
-    private lateinit var fragmentContainer: FragmentContainerView
-    private lateinit var textMedication: TextView
-
-
+    private lateinit var inputVaccName: EditText
+    private lateinit var dateAdministered: Date
+    private lateinit var nextDoseDate: Date
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_med_set_up)
+        setContentView(R.layout.activity_add_new_vacc)
 
-        inputMedName = findViewById(R.id.editVaccName)
-        inputDosage = findViewById(R.id.editDosage)
-        unitSpinner = findViewById(R.id.unitSpinner)
-        inputNotes = findViewById(R.id.editNotes)
-        setUpNotifButton = findViewById(R.id.setUpNotifButton)
-        fragmentContainer = findViewById(R.id.fragmentNotifications)
-        textMedication = findViewById(R.id.textViewVaccination)
+        inputVaccName = findViewById(R.id.editVaccName)
 
-        val homeButton = findViewById<ImageView>(R.id.homeButton2)
-        val countdownButton = findViewById<ImageView>(R.id.countdownButton2)
+        // Get references to the buttons
+        val btnAdministeredDate = findViewById<Button>(R.id.btnSetUpDate)
+        val btnNextDoseDate = findViewById<Button>(R.id.btnSetUpDate2)
 
-        // modified from https://developer.android.com/develop/ui/views/components/spinner
-        val adapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.units_array,
-            android.R.layout.simple_spinner_item
-        )
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        unitSpinner.adapter = adapter
-
-
-
-        setUpNotifButton.setOnClickListener {
-            if (validateInputs()) {
-                val userId = (FirebaseAuth.getInstance().currentUser)?.uid ?: ""
-
-                val medication = Medication(
-//                    userId = userId,
-                    name = inputMedName.text.toString(),
-                    dosage = "${inputDosage.text} ${unitSpinner.selectedItem}",
-                    notes = inputNotes.text.toString(),
-                    notifications = null
-                )
-
-                FireStoreClass().saveMedicationFS(this@AddNewVaccActivity, userId, medication)
-
-                inputMedName.isEnabled = false
-                inputMedName.visibility = View.GONE
-                inputDosage.isEnabled = false
-                inputDosage.visibility = View.GONE
-                unitSpinner.isEnabled = false
-                unitSpinner.visibility = View.GONE
-                inputNotes.isEnabled = false
-                inputNotes.visibility = View.GONE
-                setUpNotifButton.isEnabled = false
-                setUpNotifButton.visibility = View.GONE
-                textMedication.visibility = View.GONE
-
-                fragmentContainer.visibility = View.VISIBLE
-                val fragmentManager = supportFragmentManager
-                val transaction = fragmentManager.beginTransaction()
-
-                val fragment = NotificationsFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("medicationId", medication.name)
-                    }
-                }
-
-                transaction.add(R.id.fragmentNotifications, fragment)
-                transaction.addToBackStack(null).commit()
-
-            }
+        // Set OnClickListener on the administered date button
+        btnAdministeredDate.setOnClickListener {
+            // Create DatePickerDialog
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { _, year, month, dayOfMonth ->
+                    // This lambda function is called when a date is selected in the DatePickerDialog
+                    // Save the selected date to dateAdministered
+                    val calendar = Calendar.getInstance()
+                    calendar.set(year, month, dayOfMonth)
+                    dateAdministered = calendar.time
+                },
+                // The initial date to show in the DatePickerDialog
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.show()
         }
 
-        homeButton.setOnClickListener {
-            goToMainActivity()
+        // Set OnClickListener on the next dose date button
+        btnNextDoseDate.setOnClickListener {
+            // Create DatePickerDialog
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { _, year, month, dayOfMonth ->
+                    // This lambda function is called when a date is selected in the DatePickerDialog
+                    // Save the selected date to nextDoseDate
+                    val calendar = Calendar.getInstance()
+                    calendar.set(year, month, dayOfMonth)
+                    nextDoseDate = calendar.time
+                },
+                // The initial date to show in the DatePickerDialog
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.show()
         }
 
-        countdownButton.setOnClickListener {
-            goToSpanOfOneBoxActivity()
+
+        // Get a reference to the "Save" button
+        val btnSave = findViewById<Button>(R.id.btnSave)
+
+        // Set an OnClickListener on the "Save" button
+        btnSave.setOnClickListener {
+            // Get the data from the EditText fields and the selected dates
+            val vaccName = inputVaccName.text.toString()
+            val administeredDate = dateAdministered.time
+            val nextDoseDate = nextDoseDate.time
+
+            // Optionally, you can start the next activity here
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("vaccName", vaccName)
+            intent.putExtra("administeredDate", administeredDate)
+            intent.putExtra("nextDoseDate", nextDoseDate)
+            startActivity(intent)
         }
-
-    }
-
-//    private fun showNotificationsFragment() {
-//        val fragmentManager = supportFragmentManager
-//        val fragmentTransaction = fragmentManager.beginTransaction()
-//
-//        val fragment: Fragment = NotificationsFragment()
-//
-//        fragmentTransaction.add(R.id.fragmentContainerNotif, fragment)
-//    }
-//
-
-    private fun validateInputs(): Boolean {
-        return when {
-            TextUtils.isEmpty(inputMedName?.text.toString().trim { it <= ' ' }) -> {
-                showErrorToast(resources.getString(R.string.err_msg_enter_med_name))
-                false
-            }
-
-            TextUtils.isEmpty(inputDosage?.text.toString().trim { it <= ' ' }) -> {
-                showErrorToast(resources.getString(R.string.err_msg_enter_dosage))
-                false
-            }
-
-            else -> {
-                setUpNotifButton.isEnabled = true
-                true
-            }
-        }
-    }
-
-
-    private fun goToMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    private fun goToSpanOfOneBoxActivity() {
-        val intent = Intent(this, SpanOfOneBoxActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 }
