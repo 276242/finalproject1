@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val administeredDate = java.sql.Date(intent.getLongExtra("administeredDate", 0))
         val nextDoseDate = java.sql.Date(intent.getLongExtra("nextDoseDate", 0))
 
-        if (vaccineName != null) {
+        if (vaccineName != null && administeredDate != null && nextDoseDate != null) {
             val newVaccine = Vaccines(id, vaccineName, administeredDate, nextDoseDate)
             itemList.add(newVaccine)
             vaccinationAdapter.notifyDataSetChanged()

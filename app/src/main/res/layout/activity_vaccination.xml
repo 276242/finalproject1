@@ -90,6 +90,7 @@
             android:layout_marginEnd="104dp"
             android:text="Vaccination name"
             android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnSchdApp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,12 +128,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="244dp"
             android:text="Vaccine history"
             android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewVaccHist"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="263dp" />
+            app:layout_constraintTop_toBottomOf="@+id/btnSchdApp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
