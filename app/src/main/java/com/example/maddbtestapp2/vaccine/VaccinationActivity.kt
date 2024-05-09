@@ -26,8 +26,8 @@ class VaccinationActivity : AppCompatActivity() {
         vaccNametv = findViewById(R.id.vaccNametv)
         recyclerView = findViewById(R.id.recyclerViewVaccHist)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = vaccinationHistoryAdapter
 
+        vaccNametv.text = intent.getStringExtra("vaccName")
 
         btnSchedule.setOnClickListener {
             val intent = Intent(this, ScheduleAppActivity::class.java)
@@ -40,8 +40,6 @@ class VaccinationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewVaccHist)
-        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = vaccinationHistoryAdapter
     }
 }

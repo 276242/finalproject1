@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.vaccine.Vaccines
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class VaccinationAdapter(private var itemList: List<Vaccines>, private val onItemClick: (Vaccines) -> Unit) :
     RecyclerView.Adapter<VaccinationAdapter.ViewHolder>() {
@@ -27,10 +29,14 @@ class VaccinationAdapter(private var itemList: List<Vaccines>, private val onIte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
         holder.vaccineNametv.text = itemList[position].vaccineName
-        holder.nextDosetv.text = itemList[position].nextDoseDate.toString()
-        itemList[position]
+
+        val formattedNextDoseDate = dateFormat.format(currentItem.nextDoseDate)
+        holder.nextDosetv.text = "Next dose: $formattedNextDoseDate"
+//        holder.nextDosetv.text = itemList[position].nextDoseDate.toString()
+//        itemList[position]
 
 
         holder.itemView.setOnClickListener {

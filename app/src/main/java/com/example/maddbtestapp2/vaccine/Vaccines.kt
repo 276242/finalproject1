@@ -1,6 +1,6 @@
 package com.example.maddbtestapp2.vaccine
 
-import java.util.Date
+import java.sql.Date
 
 data class Vaccines(
     var id: Int? = null,
