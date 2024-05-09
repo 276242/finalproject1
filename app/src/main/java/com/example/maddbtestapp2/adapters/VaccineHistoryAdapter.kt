@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
-import com.example.maddbtestapp2.VaccineHistoryItem
+import com.example.maddbtestapp2.vaccine.VaccineHistoryItem
 
 class VaccineHistoryAdapter(private val items: List<Any>, param: (VaccineHistoryItem) -> Unit) :
     RecyclerView.Adapter<VaccineHistoryAdapter.ViewHolder>() {

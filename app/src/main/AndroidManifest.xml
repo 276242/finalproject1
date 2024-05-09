@@ -16,7 +16,7 @@
             android:name=".ScheduleAppActivity"
             android:exported="false" />
         <activity
-            android:name=".VaccinationActivity"
+            android:name=".vaccine.VaccinationActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

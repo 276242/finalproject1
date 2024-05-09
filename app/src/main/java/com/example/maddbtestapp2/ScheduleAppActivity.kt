@@ -1,7 +1,6 @@
 package com.example.maddbtestapp2
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -10,6 +9,7 @@ import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Spinner
 import android.widget.TimePicker
+import com.example.maddbtestapp2.vaccine.Vaccines
 import java.util.Calendar
 import java.util.Date
 

@@ -8,8 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
-import com.example.maddbtestapp2.VaccinationActivity
-import com.example.maddbtestapp2.Vaccines
+import com.example.maddbtestapp2.vaccine.Vaccines
 
 class VaccinationAdapter(private var itemList: List<Vaccines>, private val onItemClick: (Vaccines) -> Unit) :
     RecyclerView.Adapter<VaccinationAdapter.ViewHolder>() {

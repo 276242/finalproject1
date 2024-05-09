@@ -1,4 +1,4 @@
-package com.example.maddbtestapp2
+package com.example.maddbtestapp2.vaccine
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.maddbtestapp2.EditDateActivity
+import com.example.maddbtestapp2.R
+import com.example.maddbtestapp2.ScheduleAppActivity
 import com.example.maddbtestapp2.adapters.VaccineHistoryAdapter
 
 class VaccinationActivity : AppCompatActivity() {
