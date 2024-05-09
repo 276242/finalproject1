@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Spinner
 import android.widget.TimePicker
-import com.example.maddbtestapp2.notifications.NotificationHelper
+//import com.example.maddbtestapp2.notifications.NotificationHelper
 import com.example.maddbtestapp2.vaccine.Vaccines
 import java.util.Calendar
 import java.util.Date
@@ -20,7 +20,7 @@ class ScheduleAppActivity : BaseActivity() {
     private lateinit var datePicker: CalendarView
     private lateinit var timePicker: TimePicker
     private lateinit var saveButton: Button
-    private lateinit var notificationHelper: NotificationHelper
+//    private lateinit var notificationHelper: NotificationHelper
 
     private var selectedVaccine: Vaccines? = null
     private var selectedDate: Long = 0
@@ -34,7 +34,7 @@ class ScheduleAppActivity : BaseActivity() {
         datePicker = findViewById(R.id.datePickerSchd)
         timePicker = findViewById(R.id.timePickerSchd)
         saveButton = findViewById(R.id.btnSave2)
-        notificationHelper = NotificationHelper(applicationContext) // Initialize with application context
+//        notificationHelper = NotificationHelper(applicationContext) // Initialize with application context
 
         // TODO: Replace with actual list of vaccines
         val vaccines = listOf(Vaccines(1, "Vaccine 1", Date(), Date()), Vaccines(2, "Vaccine 2", Date(), Date()))
@@ -64,7 +64,7 @@ class ScheduleAppActivity : BaseActivity() {
 
         saveButton.setOnClickListener {
             if (selectedVaccine != null && selectedDate != 0L && selectedTime.isNotEmpty()) {
-                notificationHelper.scheduleNotification(selectedVaccine!!, selectedDate, selectedTime)
+//                notificationHelper.scheduleNotification(selectedVaccine!!, selectedDate, selectedTime)
             }
 
             val intent = Intent(this, MainActivity::class.java)

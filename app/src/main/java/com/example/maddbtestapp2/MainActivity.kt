@@ -8,13 +8,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
+import com.example.maddbtestapp2.vaccine.Vaccines
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var fabAddVaccine: FloatingActionButton
     private lateinit var vaccinationAdapter: VaccinationAdapter
+    private val itemList = mutableListOf<Vaccines>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,16 +29,29 @@ class MainActivity : AppCompatActivity() {
         val homeButton = findViewById<ImageView>(R.id.homeButton)
         val countdownButton = findViewById<ImageView>(R.id.countdownButton)
 
-        vaccinationAdapter = VaccinationAdapter(emptyList()) { vaccination ->
+
+        vaccinationAdapter = VaccinationAdapter(itemList) { vaccination ->
             val intent = Intent(this, VaccinationActivity::class.java)
+            intent.putExtra("id", vaccination.id!!.toInt())
             intent.putExtra("vaccName", vaccination.vaccineName)
-            intent.putExtra("administeredDate", vaccination.administeredDate.time)
-            intent.putExtra("nextDoseDate", vaccination.nextDoseDate.time)
+            intent.putExtra("administeredDate", vaccination.administeredDate)
+            intent.putExtra("nextDoseDate", vaccination.nextDoseDate)
             startActivity(intent)
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = vaccinationAdapter
+
+        val id = intent.getIntExtra("id", 0)
+        val vaccineName = intent.getStringExtra("vaccName")
+        val administeredDate = Date(intent.getLongExtra("administeredDate", 0))
+        val nextDoseDate = Date(intent.getLongExtra("nextDoseDate", 0))
+
+        if (vaccineName != null) {
+            val newVaccine = Vaccines(id, vaccineName, administeredDate, nextDoseDate)
+            itemList.add(newVaccine)
+            vaccinationAdapter.notifyDataSetChanged()
+        }
 
         fabAddVaccine.setOnClickListener {
             val intent = Intent(this, AddNewVaccActivity::class.java)

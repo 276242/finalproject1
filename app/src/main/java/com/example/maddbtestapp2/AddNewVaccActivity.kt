@@ -14,6 +14,8 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentContainerView
 import java.util.Calendar
 import java.util.Date
+import java.util.Random
+import java.util.UUID
 
 class AddNewVaccActivity : BaseActivity() {
 
@@ -78,15 +80,17 @@ class AddNewVaccActivity : BaseActivity() {
         // Set an OnClickListener on the "Save" button
         btnSave.setOnClickListener {
             // Get the data from the EditText fields and the selected dates
+            val id = Random().nextInt()
             val vaccName = inputVaccName.text.toString()
-            val administeredDate = dateAdministered.time.toString()
-            val nextDoseDate = nextDoseDate.time.toString()
+            val administeredDate = dateAdministered
+            val nextDoseDate = nextDoseDate
 
             // Optionally, you can start the next activity here
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("id", id)
             intent.putExtra("vaccName", vaccName)
-            intent.putExtra("administeredDate", administeredDate)
-            intent.putExtra("nextDoseDate", nextDoseDate)
+            intent.putExtra("administeredDate", administeredDate.time)
+            intent.putExtra("nextDoseDate", nextDoseDate.time)
             startActivity(intent)
         }
     }

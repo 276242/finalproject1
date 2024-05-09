@@ -26,24 +26,24 @@ class VaccinationAdapter(private var itemList: List<Vaccines>, private val onIte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val currentItem = itemList[position]
-//
-//        holder.vaccineNametv.text = itemList[position].vaccineName
-//        holder.nextDosetv.text = itemList[position].nextDoseDate.toString()
-//        itemList[position]
-//
-//
-//        holder.itemView.setOnClickListener {
-//            onItemClick(currentItem)
-//        }
+        val currentItem = itemList[position]
 
-            val vaccine = itemList[position]
+        holder.vaccineNametv.text = itemList[position].vaccineName
+        holder.nextDosetv.text = itemList[position].nextDoseDate.toString()
+        itemList[position]
 
-            holder.itemView.setOnClickListener {
-                val intent = Intent(it.context, EditDateActivity::class.java)
-                intent.putExtra("vaccine", vaccine.vaccineName)
-                it.context.startActivity(intent)
-            }
+
+        holder.itemView.setOnClickListener {
+            onItemClick(currentItem)
+        }
+
+//            val vaccine = itemList[position]
+//
+//            holder.itemView.setOnClickListener {
+//                val intent = Intent(it.context, EditDateActivity::class.java)
+//                intent.putExtra("vaccine", vaccine.vaccineName)
+//                it.context.startActivity(intent)
+//            }
     }
 
     override fun getItemCount(): Int {
