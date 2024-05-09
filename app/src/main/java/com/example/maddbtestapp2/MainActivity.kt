@@ -10,7 +10,10 @@ import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.Vaccines
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,8 +47,9 @@ class MainActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("id", 0)
         val vaccineName = intent.getStringExtra("vaccName")
-        val administeredDate = Date(intent.getLongExtra("administeredDate", 0))
-        val nextDoseDate = Date(intent.getLongExtra("nextDoseDate", 0))
+
+        val administeredDate = java.sql.Date(intent.getLongExtra("administeredDate", 0))
+        val nextDoseDate = java.sql.Date(intent.getLongExtra("nextDoseDate", 0))
 
         if (vaccineName != null) {
             val newVaccine = Vaccines(id, vaccineName, administeredDate, nextDoseDate)

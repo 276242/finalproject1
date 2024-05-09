@@ -17,6 +17,7 @@ import java.util.Date
 import java.util.Random
 import java.util.UUID
 
+
 class AddNewVaccActivity : BaseActivity() {
 
     private lateinit var inputVaccName: EditText
@@ -42,7 +43,8 @@ class AddNewVaccActivity : BaseActivity() {
                     // This lambda function is called when a date is selected in the DatePickerDialog
                     // Save the selected date to dateAdministered
                     val calendar = Calendar.getInstance()
-                    calendar.set(year, month, dayOfMonth)
+                    calendar.set(year, month, dayOfMonth, 0 , 0, 0)
+                    calendar.set(Calendar.MILLISECOND, 0)
                     dateAdministered = calendar.time
                 },
                 // The initial date to show in the DatePickerDialog
@@ -62,7 +64,7 @@ class AddNewVaccActivity : BaseActivity() {
                     // This lambda function is called when a date is selected in the DatePickerDialog
                     // Save the selected date to nextDoseDate
                     val calendar = Calendar.getInstance()
-                    calendar.set(year, month, dayOfMonth)
+                    calendar.set(year, month, dayOfMonth, 0, 0, 0)
                     nextDoseDate = calendar.time
                 },
                 // The initial date to show in the DatePickerDialog
@@ -82,14 +84,12 @@ class AddNewVaccActivity : BaseActivity() {
             // Get the data from the EditText fields and the selected dates
             val id = Random().nextInt()
             val vaccName = inputVaccName.text.toString()
-            val administeredDate = dateAdministered
-            val nextDoseDate = nextDoseDate
 
             // Optionally, you can start the next activity here
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("id", id)
             intent.putExtra("vaccName", vaccName)
-            intent.putExtra("administeredDate", administeredDate.time)
+            intent.putExtra("administeredDate", dateAdministered.time)
             intent.putExtra("nextDoseDate", nextDoseDate.time)
             startActivity(intent)
         }
