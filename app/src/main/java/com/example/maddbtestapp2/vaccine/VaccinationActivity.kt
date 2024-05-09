@@ -46,3 +46,4 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
         // Handle the delete action here
     }
 }
+//
