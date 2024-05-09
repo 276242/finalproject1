@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.VaccinationActivity
 import com.example.maddbtestapp2.Vaccines
@@ -14,7 +15,7 @@ class VaccinationAdapter(private var itemList: List<Vaccines>, private val onIte
     RecyclerView.Adapter<VaccinationAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val vaccineNametv: TextView = itemView.findViewById(R.id.vaccNametv)
+        val vaccineNametv: TextView = itemView.findViewById(R.id.vaccAdmDatetv)
         val nextDosetv: TextView = itemView.findViewById(R.id.nextDosetv)
     }
 
@@ -40,11 +41,10 @@ class VaccinationAdapter(private var itemList: List<Vaccines>, private val onIte
             val vaccine = itemList[position]
 
             holder.itemView.setOnClickListener {
-                val intent = Intent(it.context, VaccinationActivity::class.java)
+                val intent = Intent(it.context, EditDateActivity::class.java)
                 intent.putExtra("vaccine", vaccine.vaccineName)
                 it.context.startActivity(intent)
-
-        }
+            }
     }
 
     override fun getItemCount(): Int {

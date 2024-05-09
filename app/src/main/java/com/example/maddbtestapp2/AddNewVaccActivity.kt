@@ -79,8 +79,8 @@ class AddNewVaccActivity : BaseActivity() {
         btnSave.setOnClickListener {
             // Get the data from the EditText fields and the selected dates
             val vaccName = inputVaccName.text.toString()
-            val administeredDate = dateAdministered.time
-            val nextDoseDate = nextDoseDate.time
+            val administeredDate = dateAdministered.time.toString()
+            val nextDoseDate = nextDoseDate.time.toString()
 
             // Optionally, you can start the next activity here
             val intent = Intent(this, MainActivity::class.java)
