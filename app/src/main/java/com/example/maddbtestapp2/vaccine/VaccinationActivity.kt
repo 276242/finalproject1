@@ -35,7 +35,9 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
             startActivity(intent)
         }
 
-        vaccinationHistoryAdapter = VaccineHistoryAdapter(emptyList(), this)
+        // Initialize the adapter with a mutable list
+        val vaccinationItems: MutableList<VaccineHistoryItem> = mutableListOf()
+        vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this)
 
         recyclerView.adapter = vaccinationHistoryAdapter
     }
