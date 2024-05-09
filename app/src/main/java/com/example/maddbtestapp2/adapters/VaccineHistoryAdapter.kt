@@ -9,8 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
+import com.example.maddbtestapp2.VaccineHistoryItem
 
-class VaccineHistoryAdapter(private val items: List<Any>, param: (Any) -> Unit) :
+class VaccineHistoryAdapter(private val items: MutableList<VaccineHistoryItem>, param: (VaccineHistoryItem) -> Unit) :
     RecyclerView.Adapter<VaccineHistoryAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
