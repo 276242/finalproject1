@@ -11,8 +11,8 @@ import android.widget.Spinner
 import android.widget.TimePicker
 //import com.example.maddbtestapp2.notifications.NotificationHelper
 import com.example.maddbtestapp2.vaccine.Vaccines
+import java.sql.Date
 import java.util.Calendar
-import java.util.Date
 
 class ScheduleAppActivity : BaseActivity() {
 
@@ -36,8 +36,18 @@ class ScheduleAppActivity : BaseActivity() {
         saveButton = findViewById(R.id.btnSave2)
 //        notificationHelper = NotificationHelper(applicationContext) // Initialize with application context
 
+
+
         // TODO: Replace with actual list of vaccines
-        val vaccines = listOf(Vaccines(1, "Vaccine 1", Date(), Date()), Vaccines(2, "Vaccine 2", Date(), Date()))
+        val date1 = java.sql.Date.valueOf("2024-06-06")
+        val date2 = java.sql.Date.valueOf("2024-08-06")
+        val date3 = java.sql.Date.valueOf("2024-12-04")
+        val date4 = java.sql.Date.valueOf("2024-12-07")
+
+        val vaccines = listOf(
+            Vaccines(1, "Vaccine 1", date1, date2),
+            Vaccines(2, "Vaccine 2", date3, date4)
+        )
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, vaccines.map { it.vaccineName })
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         vaccineSpinner.adapter = adapter
