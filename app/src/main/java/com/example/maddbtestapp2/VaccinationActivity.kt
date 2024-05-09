@@ -31,9 +31,9 @@ class VaccinationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        vaccinationHistoryAdapter = VaccineHistoryAdapter(emptyList()) { vaccination ->
+        vaccinationHistoryAdapter = VaccineHistoryAdapter(emptyList()) { vaccine ->
             val intent = Intent(this, EditDateActivity::class.java)
-            intent.putExtra("vaccination", vaccination.administrationDate.time)
+            intent.putExtra("vaccineName", vaccine.vaccineName)
             startActivity(intent)
         }
 
