@@ -39,6 +39,8 @@ class AddNewVaccActivity : BaseActivity() {
         // Get references to the buttons
         val btnAdministeredDate = findViewById<Button>(R.id.btnSetUpDate)
         val btnNextDoseDate = findViewById<Button>(R.id.btnSetUpDate2)
+        val homeButton = findViewById<ImageView>(R.id.homeButton2)
+
 
         // Set OnClickListener on the administered date button
         btnAdministeredDate.setOnClickListener {
@@ -97,23 +99,27 @@ class AddNewVaccActivity : BaseActivity() {
                 nextDoseDate = java.sql.Date(nextDoseDate.time)
             )
 
-            // Insert the new vaccine into the database
             CoroutineScope(Dispatchers.IO).launch {
                 val connection = DbConnect.getConnection()
-                println("Connected to the database")
                 val vaccinesQueries = VaccinesQueries(connection = connection)
                 vaccinesQueries.insertVaccine(vaccine)
-                println("Insertion successful: ${vaccinesQueries.insertVaccine(vaccine)}")
 
-                // Optionally, you can start the next activity here
+
                 CoroutineScope(Dispatchers.Main).launch {
                     val intent = Intent(this@AddNewVaccActivity, MainActivity::class.java)
-                    intent.putExtra("vaccName", vaccName)
-                    intent.putExtra("administeredDate", dateAdministered.time)
-                    intent.putExtra("nextDoseDate", nextDoseDate.time)
                     startActivity(intent)
                 }
             }
         }
+
+        homeButton.setOnClickListener {
+            goToMainActivity()
+        }
+    }
+
+    private fun goToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

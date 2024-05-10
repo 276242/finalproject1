@@ -6,23 +6,23 @@ import java.sql.SQLException
 
 class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
     override fun getVaccineById(id: Int): Vaccines? {
-           val query = "SELECT * FROM `vaccine_table` WHERE `vaccine_id` = ?"
-            val preparedStatement = connection.prepareStatement(query)
-            preparedStatement.setInt(1, id)
-            val resultSet = preparedStatement.executeQuery()
-            if (resultSet.next()) {
-                return Vaccines(
-                    id = resultSet.getInt("vaccine_id"),
-                    vaccineName = resultSet.getString("vaccine_name"),
-                    administeredDate = resultSet.getDate("date_administered"),
-                    nextDoseDate = resultSet.getDate("date_next_dose")
-                )
-            }
-            return null
+        val query = "SELECT * FROM vaccine_table WHERE vaccine_id = ?"
+        val preparedStatement = connection.prepareStatement(query)
+        preparedStatement.setInt(1, id)
+        val resultSet = preparedStatement.executeQuery()
+        if (resultSet.next()) {
+            return Vaccines(
+                id = resultSet.getInt("vaccine_id"),
+                vaccineName = resultSet.getString("vaccine_name"),
+                administeredDate = resultSet.getDate("date_administered"),
+                nextDoseDate = resultSet.getDate("date_next_dose")
+            )
+        }
+        return null
     }
 
     override fun getVaccineByName(vaccineName: String): Vaccines? {
-        val query = "SELECT * FROM `vaccine_table` WHERE `vaccine_name` = ?"
+        val query = "SELECT * FROM vaccine_table WHERE vaccine_name = ?"
         val preparedStatement = connection.prepareStatement(query)
         preparedStatement.setString(1, vaccineName)
         val resultSet = preparedStatement.executeQuery()

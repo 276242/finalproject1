@@ -7,11 +7,17 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.adapters.VaccinationAdapter
+import com.example.maddbtestapp2.databaseConfig.DbConnect
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.Vaccines
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.sql.Connection
 import java.text.SimpleDateFormat
-
+import java.util.Date
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var vaccinationAdapter: VaccinationAdapter
     private val itemList = mutableListOf<Vaccines>()
 
+    private lateinit var connection : Connection
+    private lateinit var vaccinesQueries : VaccinesQueries
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,20 +49,36 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = vaccinationAdapter
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//        recyclerView.adapter = vaccinationAdapter
 
-        val id = intent.getIntExtra("id", 0)
-        val vaccineName = intent.getStringExtra("vaccName")
+//        val id = intent.getIntExtra("id", 0)
+//        val vaccineName = intent.getStringExtra("vaccName")
+//
+//        val administeredDate = java.sql.Date(intent.getLongExtra("administeredDate", 0))
+//        val nextDoseDate = java.sql.Date(intent.getLongExtra("nextDoseDate", 0))
+//
+//        if (vaccineName != null && administeredDate != null && nextDoseDate != null) {
+//            val newVaccine = Vaccines(id, vaccineName, administeredDate, nextDoseDate)
+//            itemList.add(newVaccine)
+//            vaccinationAdapter.notifyDataSetChanged()
+//        }
 
-        val administeredDate = java.sql.Date(intent.getLongExtra("administeredDate", 0))
-        val nextDoseDate = java.sql.Date(intent.getLongExtra("nextDoseDate", 0))
+        CoroutineScope(Dispatchers.IO).launch {
+            val connection = DbConnect.getConnection()
+            val vaccinesQueries = VaccinesQueries(connection = connection)
 
-        if (vaccineName != null && administeredDate != null && nextDoseDate != null) {
-            val newVaccine = Vaccines(id, vaccineName, administeredDate, nextDoseDate)
-            itemList.add(newVaccine)
-            vaccinationAdapter.notifyDataSetChanged()
+            val vaccines = vaccinesQueries.getAllVaccines()
+            if (vaccines != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    itemList .addAll(vaccines.filterNotNull())
+
+                    recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                    recyclerView.adapter = vaccinationAdapter
+                }
+            }
         }
+
 
         fabAddVaccine.setOnClickListener {
             val intent = Intent(this, AddNewVaccActivity::class.java)
