@@ -36,26 +36,22 @@ class AddNewVaccActivity : BaseActivity() {
 
         inputVaccName = findViewById(R.id.editVaccName)
 
-        // Get references to the buttons
         val btnAdministeredDate = findViewById<Button>(R.id.btnSetUpDate)
         val btnNextDoseDate = findViewById<Button>(R.id.btnSetUpDate2)
         val homeButton = findViewById<ImageView>(R.id.homeButton2)
 
 
-        // Set OnClickListener on the administered date button
         btnAdministeredDate.setOnClickListener {
-            // Create DatePickerDialog
             val datePickerDialog = DatePickerDialog(
                 this,
                 { _, year, month, dayOfMonth ->
-                    // This lambda function is called when a date is selected in the DatePickerDialog
-                    // Save the selected date to dateAdministered
+
                     val calendar = Calendar.getInstance()
                     calendar.set(year, month, dayOfMonth, 0, 0, 0)
                     calendar.set(Calendar.MILLISECOND, 0)
                     dateAdministered = calendar.time
                 },
-                // The initial date to show in the DatePickerDialog
+
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
@@ -63,19 +59,16 @@ class AddNewVaccActivity : BaseActivity() {
             datePickerDialog.show()
         }
 
-        // Set OnClickListener on the next dose date button
         btnNextDoseDate.setOnClickListener {
-            // Create DatePickerDialog
+
             val datePickerDialog = DatePickerDialog(
                 this,
                 { _, year, month, dayOfMonth ->
-                    // This lambda function is called when a date is selected in the DatePickerDialog
-                    // Save the selected date to nextDoseDate
+
                     val calendar = Calendar.getInstance()
                     calendar.set(year, month, dayOfMonth, 0, 0, 0)
                     nextDoseDate = calendar.time
                 },
-                // The initial date to show in the DatePickerDialog
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
@@ -84,12 +77,9 @@ class AddNewVaccActivity : BaseActivity() {
         }
 
 
-        // Get a reference to the "Save" button
         val btnSave = findViewById<Button>(R.id.btnSave)
 
-        // Set an OnClickListener on the "Save" button
         btnSave.setOnClickListener {
-            // Get the data from the EditText fields and the selected dates
             val vaccName = inputVaccName.text.toString()
 
             val vaccine = Vaccines(

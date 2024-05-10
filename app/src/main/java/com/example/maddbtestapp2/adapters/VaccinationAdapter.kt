@@ -35,26 +35,16 @@ class VaccinationAdapter(private var itemList: List<Vaccines>, private val onIte
 
         val formattedNextDoseDate = dateFormat.format(currentItem.nextDoseDate)
         holder.nextDosetv.text = "Next dose: $formattedNextDoseDate"
-//        holder.nextDosetv.text = itemList[position].nextDoseDate.toString()
-//        itemList[position]
+
 
 
         holder.itemView.setOnClickListener {
             onItemClick(currentItem)
         }
 
-//            val vaccine = itemList[position]
-//
-//            holder.itemView.setOnClickListener {
-//                val intent = Intent(it.context, EditDateActivity::class.java)
-//                intent.putExtra("vaccine", vaccine.vaccineName)
-//                it.context.startActivity(intent)
-//            }
     }
-
     override fun getItemCount(): Int {
         return itemList.size
     }
 
 }
-//

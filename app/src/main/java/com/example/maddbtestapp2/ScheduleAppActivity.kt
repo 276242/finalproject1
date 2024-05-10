@@ -33,7 +33,6 @@ class ScheduleAppActivity : AppCompatActivity() {
         timePicker = findViewById(R.id.timePickerSchd)
         saveButton = findViewById(R.id.btnSave2)
 
-        // TODO: Replace with actual list of vaccines
         val date1 = java.sql.Date.valueOf("2024-06-06")
         val date2 = java.sql.Date.valueOf("2024-08-06")
         val date3 = java.sql.Date.valueOf("2024-12-04")
@@ -68,7 +67,6 @@ class ScheduleAppActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-            // Perform any necessary actions before going back to MainActivity
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

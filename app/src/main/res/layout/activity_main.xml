@@ -101,41 +101,24 @@
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/homeButton"
-            app:layout_constraintStart_toEndOf="@+id/countdownButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/homeButton"
-            android:layout_width="205dp"
-            android:layout_height="58dp"
+            android:layout_width="410dp"
+            android:layout_height="59dp"
             android:layout_marginStart="1dp"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
             android:backgroundTint="@color/button_black"
             android:fadingEdge="horizontal"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/countdownButton"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icon_home" />
 
-        <ImageButton
-            android:id="@+id/countdownButton"
-            android:layout_width="206dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="1dp"
-            android:backgroundTint="@color/button_black"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/homeButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_countdown" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

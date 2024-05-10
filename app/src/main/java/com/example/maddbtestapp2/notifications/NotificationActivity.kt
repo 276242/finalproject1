@@ -50,7 +50,7 @@ class NotificationActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Implement your DatePickerDialog logic here
+
     }
 
     private fun showTimePickerDialog() {
@@ -58,7 +58,6 @@ class NotificationActivity : AppCompatActivity() {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        // Implement your TimePickerDialog logic here
     }
 
     private fun saveNotification(date: String, time: String) {

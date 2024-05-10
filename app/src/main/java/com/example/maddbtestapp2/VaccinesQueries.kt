@@ -80,7 +80,6 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
 
     override fun insertVaccine(vaccine: Vaccines): Boolean {
         try {
-            // Check if a vaccine with the same name already exists
             if (doesVaccineExist(vaccine.vaccineName)) {
                 return false
             }

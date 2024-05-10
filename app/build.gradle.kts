@@ -34,6 +34,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    configurations {
+        all {
+            exclude(group = "com.google.protobuf", module = "protobuf-java")
+        }
+    }
 }
 
 dependencies {
@@ -42,7 +48,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("mysql:mysql-connector-java:5.1.49")
+    implementation ("mysql:mysql-connector-java:8.0.26")
     implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-analytics")

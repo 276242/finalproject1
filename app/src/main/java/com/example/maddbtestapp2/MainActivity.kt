@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var vaccinationAdapter: VaccinationAdapter
     private val itemList = mutableListOf<Vaccines>()
 
-    private lateinit var connection : Connection
-    private lateinit var vaccinesQueries : VaccinesQueries
+    private lateinit var connection: Connection
+    private lateinit var vaccinesQueries: VaccinesQueries
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewVacc)
         fabAddVaccine = findViewById(R.id.addNewVaccineFAB)
         val homeButton = findViewById<ImageView>(R.id.homeButton)
-        val countdownButton = findViewById<ImageView>(R.id.countdownButton)
 
 
         vaccinationAdapter = VaccinationAdapter(itemList) { vaccination ->
@@ -49,20 +48,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.adapter = vaccinationAdapter
 
-//        val id = intent.getIntExtra("id", 0)
-//        val vaccineName = intent.getStringExtra("vaccName")
-//
-//        val administeredDate = java.sql.Date(intent.getLongExtra("administeredDate", 0))
-//        val nextDoseDate = java.sql.Date(intent.getLongExtra("nextDoseDate", 0))
-//
-//        if (vaccineName != null && administeredDate != null && nextDoseDate != null) {
-//            val newVaccine = Vaccines(id, vaccineName, administeredDate, nextDoseDate)
-//            itemList.add(newVaccine)
-//            vaccinationAdapter.notifyDataSetChanged()
-//        }
 
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()
@@ -71,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             val vaccines = vaccinesQueries.getAllVaccines()
             if (vaccines != null) {
                 CoroutineScope(Dispatchers.Main).launch {
-                    itemList .addAll(vaccines.filterNotNull())
+                    itemList.addAll(vaccines.filterNotNull())
 
                     recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
                     recyclerView.adapter = vaccinationAdapter
@@ -89,9 +75,6 @@ class MainActivity : AppCompatActivity() {
             goToMainActivity()
         }
 
-//        countdownButton.setOnClickListener {
-//            goToSpanOfOneBoxActivity()
-//        }
 
     }
 
@@ -101,22 +84,4 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-//    private fun goToSpanOfOneBoxActivity() {
-//        val intent = Intent(this, SpanOfOneBoxActivity::class.java)
-//        startActivity(intent)
-//        finish()
-//    }
-
-
-//    private fun fetchData() {
-//        // Retrieve the Intent that started this activity
-//        val intent = getIntent()
-//
-//    // Retrieve the data from the Intent
-//        val vaccName = intent.getStringExtra("vaccName")
-//        val administeredDate = Date(intent.getLongExtra("administeredDate", 0))
-//        val nextDoseDate = Date(intent.getLongExtra("nextDoseDate", 0))
-//    }
 }
-//

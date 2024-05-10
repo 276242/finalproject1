@@ -39,7 +39,7 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
             startActivity(intent)
         }
 
-        // Initialize the adapter with a mutable list
+
         val vaccinationItems: MutableList<VaccineHistoryItem> = mutableListOf()
         vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this)
 
@@ -57,7 +57,7 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
     }
 
     override fun onDeleteClicked(item: VaccineHistoryItem) {
-        // Handle the delete action here
+
     }
 }
 //

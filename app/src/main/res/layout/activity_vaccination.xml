@@ -33,41 +33,22 @@
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/homeButton2"
-            app:layout_constraintStart_toEndOf="@+id/countdownButton2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/homeButton2"
-            android:layout_width="205dp"
-            android:layout_height="58dp"
+            android:layout_width="406dp"
+            android:layout_height="60dp"
             android:layout_marginStart="1dp"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
             android:backgroundTint="@color/button_black"
             android:fadingEdge="horizontal"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/countdownButton2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icon_home" />
-
-        <ImageButton
-            android:id="@+id/countdownButton2"
-            android:layout_width="206dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="1dp"
-            android:backgroundTint="@color/button_black"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/homeButton2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_countdown" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -83,16 +64,15 @@
 
         <TextView
             android:id="@+id/vaccNametv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="213dp"
+            android:layout_height="53dp"
             android:layout_marginStart="105dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="104dp"
             android:text="Vaccination name"
-            android:textSize="25sp"
+            android:textSize="40dp"
             app:layout_constraintBottom_toTopOf="@+id/btnSchdApp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,6 +98,8 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="49dp"
+            android:background="@color/bg_purple"
+            android:backgroundTint="@color/bg_purple"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="244dp"
             android:text="Vaccine history"
             android:textSize="20dp"

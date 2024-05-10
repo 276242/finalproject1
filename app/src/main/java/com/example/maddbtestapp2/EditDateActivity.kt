@@ -34,7 +34,8 @@ class EditDateActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                 val formattedDate = dateFormat.format(selectedDate!!)
                 Toast.makeText(this, "Selected Date: $formattedDate", Toast.LENGTH_SHORT).show()
 
-                // Pass back the selected date to the calling activity
+
+
                 val resultIntent = Intent()
                 resultIntent.putExtra("selectedDate", selectedDate!!.time)
                 setResult(Activity.RESULT_OK, resultIntent)
