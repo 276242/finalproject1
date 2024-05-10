@@ -22,4 +22,6 @@ interface VaccinesDAO {
     fun updateVaccine(id: Int, vaccine: Vaccines) : Boolean
 
     fun deleteVaccine(id: Int) : Boolean
+
+    //
 }
