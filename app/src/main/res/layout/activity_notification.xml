@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/vaccineNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Vaccine Name"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="90dp" />
+
+    <Button
+        android:id="@+id/setDateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vaccineNameEditText"
+        android:text="Set Date"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="415dp" />
+
+    <Button
+        android:id="@+id/setTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vaccineNameEditText"
+        android:layout_toEndOf="@id/setDateButton"
+        android:text="Set Time"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="511dp" />
+
+    <Button
+        android:id="@+id/btnSaveNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setDateButton"
+        android:layout_alignParentEnd="true"
+        android:text="Save Notification"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="643dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,9 @@ import java.sql.Date
 import java.sql.Time
 
 data class Notification(
-    var vaccineName: String,
+    var notificationId: Int,
+    var userId: Int,
+    var scheduleId: Int,
     val notificationDate: Date,
     val notificationTime: Time
 )
