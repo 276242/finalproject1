@@ -1,66 +1,57 @@
 package com.example.maddbtestapp2.databaseConfig
 
+import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
 
-
 class DbConnect {
     companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-        try {
-            // Load the JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver")
-        } catch (e: ClassNotFoundException) {
-            e.printStackTrace()
+        val connectionUrl: String
+
+        init {
+            val urlSB = StringBuilder("jdbc:mysql://")
+            urlSB.append("sql11.freesqldatabase.com:3306/")
+            urlSB.append("sql11701641?") // database name
+            urlSB.append("useUnicode=true&characterEncoding=utf-8")
+            urlSB.append("&user=sql11701641") // your user name
+            urlSB.append("&password=uZ1riAXevy") // generate password
+            urlSB.append("&serverTimezone=CET")
+            connectionUrl = urlSB.toString()
+
         }
 
-        // Set up connection details
-        val urlSB = StringBuilder("jdbc:mysql://")
-        urlSB.append("sql11.freesqldatabase.com:3306/")
-        urlSB.append("sql11701641") // database name
-        urlSB.append("useUnicode=true&characterEncoding=utf-8")
-        urlSB.append("&user=sql11701641") // your user name
-        urlSB.append("&password=uZ1riAXevy") // generate password
-        urlSB.append("&serverTimezone=CET")
-        val connectionUrl = urlSB.toString()
+        init {
+            Class.forName("com.mysql.jdbc.Driver")
+        }
 
-        try {
-            // Establish a connection
-            val conn = DriverManager.getConnection(connectionUrl)
+        // Function to get a connection to the database
+        fun getConnection(): Connection {
+            try {
+                // Establish a connection
+                val conn = DriverManager.getConnection(connectionUrl)
+                // Test connection
+                println("Connected to the database")
+                return conn
+            } catch (e: SQLException) {
+                e.printStackTrace()
+                throw RuntimeException("Failed to establish database connection", e)
+            } catch (e: ClassNotFoundException) {
+                e.printStackTrace()
+                throw RuntimeException("Failed to load JDBC driver", e)
+            }
+        }
 
-            // Close the connection
-            conn.close()
-        } catch (e: SQLException) {
-            e.printStackTrace()
+        @JvmStatic
+        fun main(args: Array<String>) {
+            try {
+                // Getting a connection
+                val conn = getConnection()
+                // Closing the connection
+                conn.close()
+            } catch (e: SQLException) {
+                e.printStackTrace()
+            }
         }
     }
 }
-//
 
-
-//    // Database connection details
-//    private const val URL = "jdbc:mysql://sql11.freesqldatabase.com:3306/sql11701641?useUnicode=true&characterEncoding=utf-8&serverTimezone=CET"
-//    private const val USER = "sql11701641"
-//    private const val PASS = "uZ1riAXevy"
-//
-//    // Function to get a connection to the database
-//    fun getConnection(): Connection {
-//        return DriverManager.getConnection(URL, USER, PASS)
-//    }
-//
-//    companion object {
-//        // Main function to test the database connection
-//        @JvmStatic
-//        fun main(args: Array<String>) {
-//            try {
-//                // Getting a connection
-//                val conn = dbConnect().getConnection()
-//                // Closing the connection
-//                conn.close()
-//            } catch (e: SQLException) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-}

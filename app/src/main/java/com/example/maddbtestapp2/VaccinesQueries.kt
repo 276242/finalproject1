@@ -2,6 +2,7 @@ package com.example.maddbtestapp2
 
 import com.example.maddbtestapp2.vaccine.Vaccines
 import java.sql.Connection
+import java.sql.SQLException
 
 class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
     override fun getVaccineById(id: Int): Vaccines? {
@@ -78,14 +79,28 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
     }
 
     override fun insertVaccine(vaccine: Vaccines): Boolean {
-        val query = "INSERT INTO `vaccine_table` (`vaccine_name`, `date_administered`, `date_next_dose`) VALUES (?, ?, ?)"
-        val preparedStatement = connection.prepareStatement(query)
-        preparedStatement.setString(1, vaccine.vaccineName)
-        preparedStatement.setDate(2, vaccine.administeredDate)
-        preparedStatement.setDate(3, vaccine.nextDoseDate)
-        return preparedStatement.executeUpdate() > 0
-    }
+        try {
+            // Check if a vaccine with the same name already exists
+            if (doesVaccineExist(vaccine.vaccineName)) {
+                return false
+            }
 
+            val query = "INSERT INTO vaccine_table (vaccine_name, date_administered, date_next_dose) VALUES (?, ?, ?)"
+            val preparedStatement = connection.prepareStatement(query)
+            preparedStatement.setString(1, vaccine.vaccineName)
+            preparedStatement.setDate(2, vaccine.administeredDate)
+            preparedStatement.setDate(3, vaccine.nextDoseDate)
+
+            println("Executing query: $query")
+            val result = preparedStatement.executeUpdate()
+            println("Result of executeUpdate: $result")
+
+            return result > 0
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            return false
+        }
+    }
     override fun updateVaccine(id: Int, vaccine: Vaccines): Boolean {
         val query = "UPDATE `vaccine_table` SET `date_administered = ? WHERE `vaccine_name = ?"
         val preparedStatement = connection.prepareStatement(query)

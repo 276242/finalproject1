@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.EditDateActivity
+import com.example.maddbtestapp2.MainActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.ScheduleAppActivity
 import com.example.maddbtestapp2.adapters.VaccineHistoryAdapter
@@ -24,6 +26,8 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
         setContentView(R.layout.activity_vaccination)
 
         val btnSchedule = findViewById<Button>(R.id.btnSchdApp)
+        val homeButton = findViewById<ImageView>(R.id.homeButton2)
+
         vaccNametv = findViewById(R.id.vaccNametv)
         recyclerView = findViewById(R.id.recyclerViewVaccHist)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -40,6 +44,16 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
         vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this)
 
         recyclerView.adapter = vaccinationHistoryAdapter
+
+        homeButton.setOnClickListener {
+            goToMainActivity()
+        }
+    }
+
+    private fun goToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onDeleteClicked(item: VaccineHistoryItem) {
