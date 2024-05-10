@@ -19,7 +19,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-
+/**
+ * Main activity displaying a list of vaccines.
+ * Allows users to view existing vaccines and add new ones.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -34,11 +37,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Initialize views
         recyclerView = findViewById(R.id.recyclerViewVacc)
         fabAddVaccine = findViewById(R.id.addNewVaccineFAB)
         val homeButton = findViewById<ImageView>(R.id.homeButton)
 
-
+        // Initialize RecyclerView and its adapter
         vaccinationAdapter = VaccinationAdapter(itemList) { vaccination ->
             val intent = Intent(this, VaccinationActivity::class.java)
             intent.putExtra("id", vaccination.id!!.toInt())
@@ -48,8 +52,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
+        // Fetch data from database and update RecyclerView
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()
             val vaccinesQueries = VaccinesQueries(connection = connection)
@@ -58,27 +61,27 @@ class MainActivity : AppCompatActivity() {
             if (vaccines != null) {
                 CoroutineScope(Dispatchers.Main).launch {
                     itemList.addAll(vaccines.filterNotNull())
-
                     recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
                     recyclerView.adapter = vaccinationAdapter
                 }
             }
         }
 
-
+        // Set up click listener for adding a new vaccine
         fabAddVaccine.setOnClickListener {
             val intent = Intent(this, AddNewVaccActivity::class.java)
             startActivity(intent)
         }
 
+        // Set up click listener for home button
         homeButton.setOnClickListener {
             goToMainActivity()
         }
-
-
     }
 
-
+    /**
+     * Navigates to MainActivity.
+     */
     private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

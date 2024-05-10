@@ -8,7 +8,7 @@ interface VaccinesDAO {
     fun getVaccineByName(vaccineName: String): Vaccines?
     fun doesVaccineExist(vaccineName: String): Boolean
     fun getVaccineIdByVaccineName(vaccineName: String): Int
-    fun getDateAdministeredByVaccineName(id: Int): Date?
+    fun getDateAdministeredByVaccineId(id: Int): Date?
     fun getAllVaccines(): Set<Vaccines?>?
     fun insertVaccine(vaccine: Vaccines) : Boolean
     fun updateVaccine(id: Int, vaccine: Vaccines) : Boolean

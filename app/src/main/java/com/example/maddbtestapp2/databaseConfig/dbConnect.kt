@@ -17,16 +17,12 @@ class DbConnect {
             urlSB.append("&password=uZ1riAXevy") // generate password
             urlSB.append("&serverTimezone=CET")
             connectionUrl = urlSB.toString()
-
         }
 
-        init {
-            Class.forName("com.mysql.jdbc.Driver")
-        }
-
-        // Function to get a connection to the database
         fun getConnection(): Connection {
             try {
+                // Load the JDBC driver
+                Class.forName("com.mysql.jdbc.Driver")
                 // Establish a connection
                 val conn = DriverManager.getConnection(connectionUrl)
                 // Test connection
@@ -40,18 +36,5 @@ class DbConnect {
                 throw RuntimeException("Failed to load JDBC driver", e)
             }
         }
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            try {
-                // Getting a connection
-                val conn = getConnection()
-                // Closing the connection
-                conn.close()
-            } catch (e: SQLException) {
-                e.printStackTrace()
-            }
-        }
     }
 }
-
