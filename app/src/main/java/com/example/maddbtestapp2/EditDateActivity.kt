@@ -1,7 +1,8 @@
 package com.example.maddbtestapp2
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.DatePicker
@@ -16,7 +17,6 @@ class EditDateActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private lateinit var confirmButton: Button
     private var selectedDate: Date? = null
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_edit_date)
@@ -33,6 +33,12 @@ class EditDateActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate!!)
                 Toast.makeText(this, "Selected Date: $formattedDate", Toast.LENGTH_SHORT).show()
+
+                // Pass back the selected date to the calling activity
+                val resultIntent = Intent()
+                resultIntent.putExtra("selectedDate", selectedDate!!.time)
+                setResult(Activity.RESULT_OK, resultIntent)
+                finish()
             } else {
                 Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show()
             }
@@ -58,3 +64,4 @@ class EditDateActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         selectedDateButton.text = formattedDate
     }
 }
+//

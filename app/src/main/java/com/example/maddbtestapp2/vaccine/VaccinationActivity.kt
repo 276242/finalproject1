@@ -11,8 +11,9 @@ import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.ScheduleAppActivity
 import com.example.maddbtestapp2.adapters.VaccineHistoryAdapter
+import com.example.maddbtestapp2.vaccine.VaccineHistoryItem
 
-class VaccinationActivity : AppCompatActivity() {
+class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var vaccinationHistoryAdapter: VaccineHistoryAdapter
@@ -34,12 +35,15 @@ class VaccinationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        vaccinationHistoryAdapter = VaccineHistoryAdapter(emptyList()) { vaccine ->
-            val intent = Intent(this, EditDateActivity::class.java)
-            intent.putExtra("vaccineName", vaccine.vaccineName)
-            startActivity(intent)
-        }
+        // Initialize the adapter with a mutable list
+        val vaccinationItems: MutableList<VaccineHistoryItem> = mutableListOf()
+        vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this)
 
         recyclerView.adapter = vaccinationHistoryAdapter
     }
+
+    override fun onDeleteClicked(item: VaccineHistoryItem) {
+        // Handle the delete action here
+    }
 }
+//

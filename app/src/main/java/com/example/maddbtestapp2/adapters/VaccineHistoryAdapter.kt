@@ -11,14 +11,19 @@ import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.vaccine.VaccineHistoryItem
 
-class VaccineHistoryAdapter(private val items: List<Any>, param: (VaccineHistoryItem) -> Unit) :
-    RecyclerView.Adapter<VaccineHistoryAdapter.ViewHolder>() {
+class VaccineHistoryAdapter(
+    private val items: List<VaccineHistoryItem>,
+    private val onDeleteClickListener: OnDeleteClickListener
+) : RecyclerView.Adapter<VaccineHistoryAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val vaccAdminDatetv: TextView = itemView.findViewById(R.id.vaccAdmDatetv)
         val doseNumberTextView: TextView = itemView.findViewById(R.id.nextDosetv)
         val editButton: Button = itemView.findViewById(R.id.btnEdit)
         val deleteButton: Button = itemView.findViewById(R.id.btnDelete)
+    }
+    interface OnDeleteClickListener {
+        fun onDeleteClicked(item: VaccineHistoryItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,7 +33,7 @@ class VaccineHistoryAdapter(private val items: List<Any>, param: (VaccineHistory
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position] as VaccineHistoryItem
+        val item = items[position]
         holder.vaccAdminDatetv.text = item.administrationDate.toString()
         holder.doseNumberTextView.text = item.doseNumber.toString()
 
@@ -39,10 +44,10 @@ class VaccineHistoryAdapter(private val items: List<Any>, param: (VaccineHistory
         }
 
         holder.deleteButton.setOnClickListener {
-            (items as MutableList).removeAt(position)
-            notifyItemRemoved(position)
+            onDeleteClickListener.onDeleteClicked(item)
         }
     }
 
     override fun getItemCount() = items.size
 }
+//

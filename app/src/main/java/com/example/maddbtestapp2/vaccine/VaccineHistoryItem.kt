@@ -1,9 +1,11 @@
 package com.example.maddbtestapp2.vaccine
 
-import java.util.Date
+import java.sql.Date
 
 data class VaccineHistoryItem(
     val vaccineName: String,
     val doseNumber: Int,
-    val administrationDate: Date
+    var administrationDate: Date
+
 )
+//

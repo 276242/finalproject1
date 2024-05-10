@@ -1,39 +1,66 @@
-//package com.example.maddbtestapp2.databaseConfig
+package com.example.maddbtestapp2.databaseConfig
+
+import java.sql.DriverManager
+import java.sql.SQLException
+
+
+class DbConnect {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+        try {
+            // Load the JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver")
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        }
+
+        // Set up connection details
+        val urlSB = StringBuilder("jdbc:mysql://")
+        urlSB.append("sql11.freesqldatabase.com:3306/")
+        urlSB.append("sql11701641") // database name
+        urlSB.append("useUnicode=true&characterEncoding=utf-8")
+        urlSB.append("&user=sql11701641") // your user name
+        urlSB.append("&password=uZ1riAXevy") // generate password
+        urlSB.append("&serverTimezone=CET")
+        val connectionUrl = urlSB.toString()
+
+        try {
+            // Establish a connection
+            val conn = DriverManager.getConnection(connectionUrl)
+
+            // Close the connection
+            conn.close()
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+    }
+}
 //
-//import java.sql.Connection
-//import java.sql.DriverManager
-//import java.sql.SQLException
-//
-//class dbConnect {
+
+
 //    // Database connection details
-//    private const val URL = "jdbc:mysql://sql11.freesqldatabase.com:3306/sql11698482?useUnicode=true&characterEncoding=utf-8&serverTimezone=CET"   // TODO set in environmental variables
-//    private const val USER = "sql11698482" // TODO set in environmental variables
-//    private const val PASS = "MT4yfZGyM6" // TODO set in environmental variables
-//
-//    // Static initializer block to register the MySQL JDBC driver
-//    init {
-//        Class.forName("com.mysql.jdbc.Driver")
-//    }
+//    private const val URL = "jdbc:mysql://sql11.freesqldatabase.com:3306/sql11701641?useUnicode=true&characterEncoding=utf-8&serverTimezone=CET"
+//    private const val USER = "sql11701641"
+//    private const val PASS = "uZ1riAXevy"
 //
 //    // Function to get a connection to the database
 //    fun getConnection(): Connection {
-//        try {
-//            return DriverManager.getConnection(URL, USER, PASS)
-//        } catch (ex: SQLException) {
-//            throw RuntimeException("Error connecting to the database", ex)
-//        }
+//        return DriverManager.getConnection(URL, USER, PASS)
 //    }
 //
-//    // Main function to test the database connection
-//    @JvmStatic
-//    fun main(args: Array<String>) {
-//        try {
-//            // Getting a connection
-//            val conn = getConnection()
-//            // Closing the connection
-//            conn.close()
-//        } catch (e: SQLException) {
-//            e.printStackTrace()
+//    companion object {
+//        // Main function to test the database connection
+//        @JvmStatic
+//        fun main(args: Array<String>) {
+//            try {
+//                // Getting a connection
+//                val conn = dbConnect().getConnection()
+//                // Closing the connection
+//                conn.close()
+//            } catch (e: SQLException) {
+//                e.printStackTrace()
+//            }
 //        }
 //    }
-//}
+}
