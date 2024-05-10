@@ -8,12 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.MainActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.ScheduleAppActivity
+import com.example.maddbtestapp2.VaccinesQueries
 import com.example.maddbtestapp2.adapters.VaccineHistoryAdapter
-import com.example.maddbtestapp2.vaccine.VaccineHistoryItem
+import com.example.maddbtestapp2.databaseConfig.DbConnect
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.sql.Date
 
 class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteClickListener {
 
@@ -39,9 +43,25 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
             startActivity(intent)
         }
 
-
         val vaccinationItems: MutableList<VaccineHistoryItem> = mutableListOf()
         vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val connection = DbConnect.getConnection()
+            val vaccinesQueries = VaccinesQueries(connection = connection)
+
+            val vaccines = vaccinesQueries.getVaccineByName(vaccNametv.text.toString())
+            if (vaccines != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    vaccinationItems.add(VaccineHistoryItem(vaccines.vaccineName, vaccines.administeredDate))
+                    vaccinationHistoryAdapter.notifyDataSetChanged()
+                }
+            }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                vaccinationHistoryAdapter.notifyDataSetChanged()
+            }
+        }
 
         recyclerView.adapter = vaccinationHistoryAdapter
 
@@ -57,7 +77,5 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
     }
 
     override fun onDeleteClicked(item: VaccineHistoryItem) {
-
     }
 }
-//

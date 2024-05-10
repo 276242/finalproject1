@@ -4,8 +4,6 @@ import java.sql.Date
 
 data class VaccineHistoryItem(
     val vaccineName: String,
-    val doseNumber: Int,
     var administrationDate: Date
-
 )
 //

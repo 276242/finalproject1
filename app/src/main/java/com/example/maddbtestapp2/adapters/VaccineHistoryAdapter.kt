@@ -10,15 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.vaccine.VaccineHistoryItem
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class VaccineHistoryAdapter(
-    private val items: List<VaccineHistoryItem>,
+    var items: List<VaccineHistoryItem>,
     private val onDeleteClickListener: OnDeleteClickListener
 ) : RecyclerView.Adapter<VaccineHistoryAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val vaccAdminDatetv: TextView = itemView.findViewById(R.id.vaccAdmDatetv)
-        val doseNumberTextView: TextView = itemView.findViewById(R.id.nextDosetv)
         val editButton: Button = itemView.findViewById(R.id.btnEdit)
         val deleteButton: Button = itemView.findViewById(R.id.btnDelete)
     }
@@ -34,8 +35,10 @@ class VaccineHistoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.vaccAdminDatetv.text = item.administrationDate.toString()
-        holder.doseNumberTextView.text = item.doseNumber.toString()
+
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+        holder.vaccAdminDatetv.text = dateFormat.format(item.administrationDate)
 
         holder.editButton.setOnClickListener {
             val intent = Intent(it.context, EditDateActivity::class.java)

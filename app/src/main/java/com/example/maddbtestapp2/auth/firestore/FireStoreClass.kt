@@ -4,7 +4,7 @@ import com.example.maddbtestapp2.auth.RegisterActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
-
+//
 class FireStoreClass {
 
     private val mFireStore = FirebaseFirestore.getInstance()

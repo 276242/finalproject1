@@ -2,6 +2,7 @@ package com.example.maddbtestapp2
 
 import com.example.maddbtestapp2.vaccine.Vaccines
 import java.sql.Connection
+import java.sql.Date
 import java.sql.SQLException
 
 class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
@@ -76,6 +77,17 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         } else {
             vaccines
         }
+    }
+
+    override fun getDateAdministeredByVaccineId(id: Int): Date? {
+        val query = "SELECT `date_administered` FROM `vaccine_table` WHERE `vaccine_id` = ?"
+        val preparedStatement = connection.prepareStatement(query)
+        preparedStatement.setInt(1, id)
+        val resultSet = preparedStatement.executeQuery()
+        if (resultSet.next()) {
+            return resultSet.getDate("date_administered")
+        }
+        return null
     }
 
     override fun insertVaccine(vaccine: Vaccines): Boolean {
