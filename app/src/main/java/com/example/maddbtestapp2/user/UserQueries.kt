@@ -1,4 +1,4 @@
-//package com.example.maddbtestapp2
+package com.example.maddbtestapp2.user//package com.example.maddbtestapp2
 //
 //
 //import com.example.myapplicationmad.firestore.User

@@ -55,3 +55,4 @@ class VaccineHistoryAdapter(
     override fun getItemCount() = items.size
 }
 //
+//

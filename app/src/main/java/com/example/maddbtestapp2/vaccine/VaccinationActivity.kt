@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.maddbtestapp2.HistoryQueries
+import com.example.maddbtestapp2.history.HistoryQueries
 import com.example.maddbtestapp2.MainActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.ScheduleAppActivity
@@ -86,3 +86,4 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
     override fun onDeleteClicked(item: VaccineHistoryItem) {
     }
 }
+//

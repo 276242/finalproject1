@@ -1,4 +1,4 @@
-package com.example.maddbtestapp2
+package com.example.maddbtestapp2.history
 
 import java.sql.Date
 
@@ -12,3 +12,4 @@ interface HistoryDAO {
     fun updateHistory(id: Int, history: History): Boolean
     fun deleteHistory(id: Int): Boolean
 }
+//

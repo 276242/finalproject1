@@ -1,6 +1,5 @@
-package com.example.maddbtestapp2
+package com.example.maddbtestapp2.history
 
-import com.example.maddbtestapp2.vaccine.Vaccines
 import java.sql.Connection
 
 class HistoryQueries(private val connection : Connection) : HistoryDAO {
@@ -101,3 +100,4 @@ class HistoryQueries(private val connection : Connection) : HistoryDAO {
         return preparedStatement.executeUpdate() > 0
     }
 }
+//

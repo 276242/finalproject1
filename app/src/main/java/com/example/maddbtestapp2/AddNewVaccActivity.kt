@@ -112,3 +112,4 @@ class AddNewVaccActivity : BaseActivity() {
         finish()
     }
 }
+//

@@ -48,3 +48,4 @@ class VaccinationAdapter(private var itemList: List<Vaccines>, private val onIte
     }
 
 }
+//
