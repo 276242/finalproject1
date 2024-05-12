@@ -10,6 +10,7 @@ import com.example.maddbtestapp2.vaccine.Vaccines
 import java.util.Calendar
 import java.util.Date
 import com.example.maddbtestapp2.databaseConfig.DbConnect
+import com.example.maddbtestapp2.vaccine.VaccinesQueries
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
