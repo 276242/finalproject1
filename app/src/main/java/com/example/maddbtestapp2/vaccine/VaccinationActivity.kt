@@ -45,7 +45,7 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
             startActivity(intent)
         }
 
-        vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this)
+        vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this, vaccNametv.text.toString())
 
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()
@@ -54,12 +54,11 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
 
             val vaccine_Id = vaccinesQueries.getVaccineIdByVaccineName(vaccNametv.text.toString())
 
-
             val histories = historyQueries.getHistoryByVaccineId(vaccine_Id)
             if (histories != null) {
                 CoroutineScope(Dispatchers.Main).launch {
                     for (history in histories) {
-                        vaccinationItems.add(VaccineHistoryItem(history.vaccineId.toString(), history.administeredDate))
+                        vaccinationItems.add(VaccineHistoryItem(history.id, history.vaccineId.toString(), history.administeredDate))
                     }
                     vaccinationHistoryAdapter.notifyDataSetChanged()
                 }
@@ -84,6 +83,15 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
     }
 
     override fun onDeleteClicked(item: VaccineHistoryItem) {
+//        val connection = DbConnect.getConnection()
+//        val historyQueries = HistoryQueries(connection)
+//        CoroutineScope(Dispatchers.IO).launch {
+//            historyQueries.deleteHistory(item.historyId)
+//            vaccinationItems.remove(item)
+//            CoroutineScope(Dispatchers.Main).launch {
+//                vaccinationHistoryAdapter.notifyDataSetChanged()
+//            }
+//        }
     }
 }
 //

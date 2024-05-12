@@ -35,12 +35,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize views
         recyclerView = findViewById(R.id.recyclerViewVacc)
         fabAddVaccine = findViewById(R.id.addNewVaccineFAB)
         val homeButton = findViewById<ImageView>(R.id.homeButton)
 
-        // Initialize RecyclerView and its adapter
         vaccinationAdapter = VaccinationAdapter(itemList) { vaccination ->
             val intent = Intent(this, VaccinationActivity::class.java)
             intent.putExtra("id", vaccination.id!!.toInt())
@@ -50,7 +48,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Fetch data from database and update RecyclerView
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()
             val vaccinesQueries = VaccinesQueries(connection = connection)
@@ -65,13 +62,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Set up click listener for adding a new vaccine
         fabAddVaccine.setOnClickListener {
             val intent = Intent(this, AddNewVaccActivity::class.java)
             startActivity(intent)
         }
 
-        // Set up click listener for home button
         homeButton.setOnClickListener {
             goToMainActivity()
         }
@@ -86,4 +81,3 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 }
-//

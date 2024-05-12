@@ -1,6 +1,7 @@
 package com.example.maddbtestapp2.history
 
 import java.sql.Connection
+import java.sql.Date
 
 class HistoryQueries(private val connection : Connection) : HistoryDAO {
     override fun getHistoryById(id: Int): History? {
@@ -81,6 +82,14 @@ class HistoryQueries(private val connection : Connection) : HistoryDAO {
         val preparedStatement = connection.prepareStatement(query)
         preparedStatement.setInt(1, history.vaccineId)
         preparedStatement.setDate(2, history.administeredDate)
+        return preparedStatement.executeUpdate() > 0
+    }
+
+    override fun updateAdministrationDate(id: Int, newDate: Date): Boolean {
+        val query = "UPDATE history_table SET date_administered = ? WHERE history_id = ?"
+        val preparedStatement = connection.prepareStatement(query)
+        preparedStatement.setDate(1, newDate)
+        preparedStatement.setInt(2, id)
         return preparedStatement.executeUpdate() > 0
     }
 

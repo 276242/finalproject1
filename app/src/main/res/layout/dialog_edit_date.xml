@@ -5,32 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <DatePicker
+        android:id="@+id/datePicker2"
+        android:layout_width="274dp"
+        android:layout_height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="99dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="47dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintBottom_toTopOf="@+id/selDateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/selDateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="43dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="324dp"
         android:text="select"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/confirmButton"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker2"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="324dp"
         android:text="confirm"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/selDateButton"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker2"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="HardcodedText" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="145dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

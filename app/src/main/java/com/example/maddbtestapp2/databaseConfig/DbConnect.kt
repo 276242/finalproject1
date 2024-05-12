@@ -21,11 +21,8 @@ class DbConnect {
 
         fun getConnection(): Connection {
             try {
-                // Load the JDBC driver
                 Class.forName("com.mysql.jdbc.Driver")
-                // Establish a connection
                 val conn = DriverManager.getConnection(connectionUrl)
-                // Test connection
                 println("Connected to the database")
                 return conn
             } catch (e: SQLException) {

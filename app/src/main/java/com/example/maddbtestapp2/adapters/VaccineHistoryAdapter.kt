@@ -1,5 +1,6 @@
 package com.example.maddbtestapp2.adapters
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +10,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.EditDateActivity
 import com.example.maddbtestapp2.R
+import com.example.maddbtestapp2.databaseConfig.DbConnect
+import com.example.maddbtestapp2.history.HistoryQueries
 import com.example.maddbtestapp2.vaccine.VaccineHistoryItem
+import com.example.maddbtestapp2.vaccine.VaccinesQueries
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.sql.Date
 import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.GregorianCalendar
 import java.util.Locale
 
 class VaccineHistoryAdapter(
     var items: List<VaccineHistoryItem>,
-    private val onDeleteClickListener: OnDeleteClickListener
+    private val onDeleteClickListener: OnDeleteClickListener,
 ) : RecyclerView.Adapter<VaccineHistoryAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,10 +51,35 @@ class VaccineHistoryAdapter(
         val justDate = dateFormat.format(item.administrationDate)
         holder.vaccAdminDatetv.text = "Administered on: $justDate"
 
+        holder.editButton.tag = item.historyId
+
         holder.editButton.setOnClickListener {
-            val intent = Intent(it.context, EditDateActivity::class.java)
-            intent.putExtra("item", item.administrationDate.time)
-            it.context.startActivity(intent)
+            val calendar = Calendar.getInstance()
+            calendar.time = item.administrationDate
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            DatePickerDialog(it.context, { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                val selectedDate = GregorianCalendar(selectedYear, selectedMonth, selectedDayOfMonth).time
+                item.administrationDate = selectedDate as Date
+                holder.vaccAdminDatetv.text = "Administered on: ${dateFormat.format(selectedDate)}"
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    val connection = DbConnect.getConnection()
+                    val historyQueries = HistoryQueries(connection)
+
+                    items[position].historyId?.let { historyId ->
+                        historyQueries.updateAdministrationDate(historyId, items[position].administrationDate)
+                        connection.commit()
+                    }
+
+                    historyQueries.updateAdministrationDate(item.historyId!!, item.administrationDate)
+                    connection.commit()
+                }
+
+                notifyItemChanged(position)
+            }, year, month, day).show()
         }
 
         holder.deleteButton.setOnClickListener {
