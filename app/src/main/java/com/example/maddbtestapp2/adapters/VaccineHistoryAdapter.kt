@@ -55,6 +55,7 @@ class VaccineHistoryAdapter(
         holder.editButton.tag = item.historyId
 
         holder.editButton.setOnClickListener {
+            println(item.historyId)
             val calendar = Calendar.getInstance()
             calendar.time = item.administrationDate
             val year = calendar.get(Calendar.YEAR)
@@ -63,8 +64,11 @@ class VaccineHistoryAdapter(
 
             DatePickerDialog(it.context, { _, selectedYear, selectedMonth, selectedDayOfMonth ->
                 val selectedDate = GregorianCalendar(selectedYear, selectedMonth, selectedDayOfMonth).time
-                item.administrationDate = selectedDate as Date
+                println(item.administrationDate)
+                item.administrationDate = java.sql.Date(selectedDate.time)
+                println(item.administrationDate)
                 holder.vaccAdminDatetv.text = "Administered on: ${dateFormat.format(selectedDate)}"
+
 
                 CoroutineScope(Dispatchers.IO).launch {
                     val connection = DbConnect.getConnection()
@@ -72,11 +76,7 @@ class VaccineHistoryAdapter(
 
                     items[position].historyId?.let { historyId ->
                         historyQueries.updateAdministrationDate(historyId, items[position].administrationDate)
-                        connection.commit()
                     }
-
-                    historyQueries.updateAdministrationDate(item.historyId!!, item.administrationDate)
-                    connection.commit()
                 }
 
                 notifyItemChanged(position)
