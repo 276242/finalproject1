@@ -1,6 +1,5 @@
 package com.example.maddbtestapp2.appointment
 
-import com.example.maddbtestapp2.vaccine.Vaccines
 import java.sql.Connection
 import java.sql.Date
 import java.sql.PreparedStatement
@@ -94,11 +93,11 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
     }
 
     override fun insertAppointment(appointment: Appointment): Boolean {
-        val query = "INSERT INTO schedule_appointment (user_id, vaccine_id, scheduled_date, scheduled_time) VALUES (?, ?, ?, ?)"
+        val query = "INSERT INTO scheduled_vaccine_table (user_id, vaccine_id, scheduled_date, scheduled_time) VALUES (?, ?, ?, ?)"
         return try {
             val preparedStatement: PreparedStatement = connection.prepareStatement(query)
-            appointment.userId?.let { preparedStatement.setInt(1, it) }
-            appointment.vaccineId?.let { preparedStatement.setInt(2, it) }
+            preparedStatement.setInt(1, appointment.userId ?: -1)
+            preparedStatement.setInt(2, appointment.vaccineId ?: -1)
             preparedStatement.setDate(3, appointment.date)
             preparedStatement.setTime(4, appointment.time)
             val result = preparedStatement.executeUpdate()
@@ -113,8 +112,8 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
         val query = "UPDATE scheduled_vaccine_table SET user_id = ?, vaccine_id = ?, scheduled_date = ?, scheduled_time = ? WHERE schedule_id = ?"
         return try {
             val preparedStatement: PreparedStatement = connection.prepareStatement(query)
-            appointment.userId?.let { preparedStatement.setInt(1, it) }
-            appointment.vaccineId?.let { preparedStatement.setInt(2, it) }
+            preparedStatement.setInt(1, appointment.userId ?: -1)
+            preparedStatement.setInt(2, appointment.vaccineId ?: -1)
             preparedStatement.setDate(3, appointment.date)
             preparedStatement.setTime(4, appointment.time)
             preparedStatement.setInt(5, id)
