@@ -26,6 +26,7 @@ import java.util.Locale
 class VaccineHistoryAdapter(
     var items: List<VaccineHistoryItem>,
     private val onDeleteClickListener: OnDeleteClickListener,
+    private val vaccineName: String
 ) : RecyclerView.Adapter<VaccineHistoryAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
