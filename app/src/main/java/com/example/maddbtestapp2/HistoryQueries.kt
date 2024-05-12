@@ -19,25 +19,27 @@ class HistoryQueries(private val connection : Connection) : HistoryDAO {
         return null
     }
 
-    override fun getHistoryByVaccineId(vaccineId: Int): History? {
+    override fun getHistoryByVaccineId(vaccineId: Int): List<History>? {
         val query = "SELECT * FROM history_table WHERE vaccine_id = ?"
         val preparedStatement = connection.prepareStatement(query)
         preparedStatement.setInt(1, vaccineId)
         val resultSet = preparedStatement.executeQuery()
-        if (resultSet.next()) {
-            return History(
-                id = resultSet.getInt("history_id"),
-                vaccineId = resultSet.getInt("vaccine_id"),
-                administeredDate = resultSet.getDate("date_administered"),
+        val histories = mutableListOf<History>()
+        while (resultSet.next()) {
+            histories.add(
+                History(
+                    id = resultSet.getInt("history_id"),
+                    vaccineId = resultSet.getInt("vaccine_id"),
+                    administeredDate = resultSet.getDate("date_administered"),
+                )
             )
         }
-
-        return null
+        return if (histories.isNotEmpty()) histories else null
     }
 
 
     override fun getHistoryIdByVaccineId(vaccineId: Int): Int {
-        val query = "SELECT `history_id` FROM `history_table` WHERE `vaccine_id` = ?"
+        val query = "SELECT history_id FROM history_table WHERE vaccine_id = ?"
         val preparedStatement = connection.prepareStatement(query)
         preparedStatement.setInt(1, vaccineId)
         val resultSet = preparedStatement.executeQuery()

@@ -4,7 +4,7 @@ import java.sql.Date
 
 interface HistoryDAO {
     fun getHistoryById(id: Int): History?
-    fun getHistoryByVaccineId(vaccineId: Int): History?
+    fun getHistoryByVaccineId(vaccineId: Int): List<History>?
     fun getHistoryIdByVaccineId(vaccineId: Int): Int
     fun getDateAdministeredByVaccineId(vaccineId: Int): Date?
     fun getAllHistories(): Set<History?>?

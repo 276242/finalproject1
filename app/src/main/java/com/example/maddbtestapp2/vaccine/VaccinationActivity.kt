@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.maddbtestapp2.HistoryQueries
 import com.example.maddbtestapp2.MainActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.ScheduleAppActivity
@@ -24,6 +25,8 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
     private lateinit var recyclerView: RecyclerView
     private lateinit var vaccinationHistoryAdapter: VaccineHistoryAdapter
     private lateinit var vaccNametv: TextView
+    private val vaccinationItems = mutableListOf<VaccineHistoryItem>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,22 +41,28 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
 
         vaccNametv.text = intent.getStringExtra("vaccName")
 
+
         btnSchedule.setOnClickListener {
             val intent = Intent(this, ScheduleAppActivity::class.java)
             startActivity(intent)
         }
 
-        val vaccinationItems: MutableList<VaccineHistoryItem> = mutableListOf()
         vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this)
 
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()
             val vaccinesQueries = VaccinesQueries(connection = connection)
+            val historyQueries = HistoryQueries(connection = connection)
 
-            val vaccines = vaccinesQueries.getVaccineByName(vaccNametv.text.toString())
-            if (vaccines != null) {
+            val vaccine_Id = vaccinesQueries.getVaccineIdByVaccineName(vaccNametv.text.toString())
+
+
+            val histories = historyQueries.getHistoryByVaccineId(vaccine_Id)
+            if (histories != null) {
                 CoroutineScope(Dispatchers.Main).launch {
-                    vaccinationItems.add(VaccineHistoryItem(vaccines.vaccineName, vaccines.administeredDate))
+                    for (history in histories) {
+                        vaccinationItems.add(VaccineHistoryItem(history.vaccineId.toString(), history.administeredDate))
+                    }
                     vaccinationHistoryAdapter.notifyDataSetChanged()
                 }
             }

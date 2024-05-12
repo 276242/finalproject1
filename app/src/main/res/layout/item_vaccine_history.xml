@@ -8,8 +8,8 @@
     android:padding="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="187dp"
+        android:layout_width="wrap_content"
+        android:layout_height="190dp"
         android:background="@color/white">
 
 
@@ -17,21 +17,25 @@
             android:id="@+id/vaccAdmDatetv"
             android:layout_width="300dp"
             android:layout_height="35dp"
+            android:layout_marginStart="47dp"
             android:layout_marginTop="48dp"
-            android:layout_marginEnd="52dp"
-            android:gravity="center_vertical"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="29dp"
+            android:gravity="center|center_vertical"
             android:text="Vaccine date administered"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnEdit"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="41dp"
-            android:layout_marginEnd="106dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginEnd="80dp"
             android:layout_marginBottom="27dp"
             android:text="EDIT"
             app:layout_constraintBottom_toBottomOf="parent"

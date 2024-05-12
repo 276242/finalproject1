@@ -36,9 +36,10 @@ class VaccineHistoryAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
-        holder.vaccAdminDatetv.text = dateFormat.format(item.administrationDate)
+        val justDate = dateFormat.format(item.administrationDate)
+        holder.vaccAdminDatetv.text = "Administered on: $justDate"
 
         holder.editButton.setOnClickListener {
             val intent = Intent(it.context, EditDateActivity::class.java)
