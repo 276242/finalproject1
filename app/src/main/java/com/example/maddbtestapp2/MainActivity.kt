@@ -10,14 +10,12 @@ import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.databaseConfig.DbConnect
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.Vaccines
+import com.example.maddbtestapp2.vaccine.VaccinesQueries
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.sql.Connection
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 /**
  * Main activity displaying a list of vaccines.

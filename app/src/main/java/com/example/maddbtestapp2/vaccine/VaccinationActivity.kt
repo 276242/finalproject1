@@ -12,13 +12,11 @@ import com.example.maddbtestapp2.HistoryQueries
 import com.example.maddbtestapp2.MainActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.ScheduleAppActivity
-import com.example.maddbtestapp2.VaccinesQueries
 import com.example.maddbtestapp2.adapters.VaccineHistoryAdapter
 import com.example.maddbtestapp2.databaseConfig.DbConnect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.sql.Date
 
 class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteClickListener {
 

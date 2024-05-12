@@ -1,4 +1,4 @@
-package com.example.maddbtestapp2
+package com.example.maddbtestapp2.vaccine
 
 import com.example.maddbtestapp2.vaccine.Vaccines
 import java.sql.Date
