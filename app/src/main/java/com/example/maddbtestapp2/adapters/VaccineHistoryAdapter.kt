@@ -84,7 +84,19 @@ class VaccineHistoryAdapter(
         }
 
         holder.deleteButton.setOnClickListener {
+            println(item.historyId)
             onDeleteClickListener.onDeleteClicked(item)
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val connection = DbConnect.getConnection()
+                val historyQueries = HistoryQueries(connection)
+                historyQueries.deleteHistory(item.historyId!!)
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    items = items.filter { it.historyId != item.historyId }
+                    notifyItemRemoved(position)
+                }
+            }
         }
     }
 
