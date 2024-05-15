@@ -15,6 +15,7 @@ import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.appointment.Appointment
 import com.example.maddbtestapp2.appointment.AppointmentQueries
 import com.example.maddbtestapp2.databaseConfig.DbConnect
+import com.example.maddbtestapp2.notifications.NotificationActivity
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.VaccinesQueries
 import kotlinx.coroutines.CoroutineScope
@@ -110,7 +111,9 @@ class ScheduleAppActivity : AppCompatActivity() {
                 connection.close()
 
                 withContext(Dispatchers.Main) {
-                    val intent = Intent(this@ScheduleAppActivity, MainActivity::class.java)
+                    val intent = Intent(this@ScheduleAppActivity, NotificationActivity::class.java)
+                    intent.putExtra("vaccineName", selectedVaccineName)
+                    intent.putExtra("scheduleId", appointment.id)
                     startActivity(intent)
                 }
             }

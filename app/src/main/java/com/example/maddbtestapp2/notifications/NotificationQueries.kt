@@ -12,7 +12,6 @@ class NotificationQueries(private val connection: Connection) : NotificationsDAO
         if (resultSet.next()) {
             return Notification(
                 notificationId = resultSet.getInt("notification_id"),
-                userId = resultSet.getInt("user_id"),
                 scheduleId = resultSet.getInt("schedule_id"),
                 notificationDate = resultSet.getDate("notification_date"),
                 notificationTime = resultSet.getTime("notification_time")
@@ -22,23 +21,21 @@ class NotificationQueries(private val connection: Connection) : NotificationsDAO
     }
 
     override fun insertNotification(notification: Notification): Boolean {
-        val query = "INSERT INTO notification_table (user_id, schedule_id, notification_date, notification_time) VALUES (?, ?, ?, ?)"
+        val query = "INSERT INTO notification_table (schedule_id, notification_date, notification_time) VALUES (?, ?, ?)"
         val preparedStatement = connection.prepareStatement(query)
-        preparedStatement.setInt(1, notification.userId)
-        preparedStatement.setInt(2, notification.scheduleId)
-        preparedStatement.setDate(3, notification.notificationDate)
-        preparedStatement.setTime(4, notification.notificationTime)
+        preparedStatement.setInt(1, notification.scheduleId)
+        preparedStatement.setDate(2, notification.notificationDate)
+        preparedStatement.setTime(3, notification.notificationTime)
         return preparedStatement.executeUpdate() > 0
     }
 
     override fun updateNotification(notificationId: Int, notification: Notification): Boolean {
-        val query = "UPDATE notification_table SET user_id = ?, schedule_id = ?, notification_date = ?, notification_time = ? WHERE notification_id = ?"
+        val query = "UPDATE notification_table SET schedule_id = ?, notification_date = ?, notification_time = ? WHERE notification_id = ?"
         val preparedStatement = connection.prepareStatement(query)
-        preparedStatement.setInt(1, notification.userId)
-        preparedStatement.setInt(2, notification.scheduleId)
-        preparedStatement.setDate(3, notification.notificationDate)
-        preparedStatement.setTime(4, notification.notificationTime)
-        preparedStatement.setInt(5, notificationId)
+        preparedStatement.setInt(1, notification.scheduleId)
+        preparedStatement.setDate(2, notification.notificationDate)
+        preparedStatement.setTime(3, notification.notificationTime)
+        preparedStatement.setInt(4, notificationId)
         return preparedStatement.executeUpdate() > 0
     }
 

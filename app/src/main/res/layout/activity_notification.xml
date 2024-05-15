@@ -5,41 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/vaccineNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="270dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="354dp"
-        android:hint="Vaccine Name"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/setDateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/setDateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/vaccineNameEditText"
         android:layout_marginStart="153dp"
-        android:layout_marginTop="185dp"
         android:layout_marginEnd="156dp"
+        android:layout_marginBottom="55dp"
         android:text="Set Date"
         app:layout_constraintBottom_toTopOf="@+id/setTimeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vaccineNameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/setTimeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/vaccineNameEditText"
         android:layout_marginStart="153dp"
         android:layout_marginEnd="153dp"
         android:layout_toEndOf="@id/setDateButton"
@@ -56,11 +38,29 @@
         android:layout_below="@id/setDateButton"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="127dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="127dp"
+        android:layout_marginBottom="106dp"
         android:text="Save Notification"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setTimeButton" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="259dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="SET UP NOTIFICATIONS"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/setDateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
