@@ -25,24 +25,24 @@ class EditDateActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_edit_date)
 
-        // Initialize views
+
         selectedDateButton = findViewById(R.id.selDateButton)
         confirmButton = findViewById(R.id.confirmButton)
 
-        // Set up click listener for selecting date
+
         selectedDateButton.setOnClickListener {
             showDatePickerDialog()
         }
 
-        // Set up click listener for confirming selected date
+
         confirmButton.setOnClickListener {
             if (selectedDate != null) {
-                // Format selected date
+
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate!!)
                 Toast.makeText(this, "Selected Date: $formattedDate", Toast.LENGTH_SHORT).show()
 
-                // Prepare result intent with selected date and finish activity
+
                 val resultIntent = Intent()
                 resultIntent.putExtra("selectedDate", selectedDate!!.time)
                 setResult(Activity.RESULT_OK, resultIntent)
@@ -75,7 +75,7 @@ class EditDateActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         calendar.set(year, month, dayOfMonth)
         selectedDate = calendar.time
 
-        // Format selected date and update button text
+
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val formattedDate = dateFormat.format(selectedDate!!)
         selectedDateButton.text = formattedDate

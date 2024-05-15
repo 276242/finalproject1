@@ -17,6 +17,7 @@ import com.example.maddbtestapp2.databaseConfig.DbConnect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.sql.Date
 
 class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteClickListener {
 
@@ -24,7 +25,6 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
     private lateinit var vaccinationHistoryAdapter: VaccineHistoryAdapter
     private lateinit var vaccNametv: TextView
     private val vaccinationItems = mutableListOf<VaccineHistoryItem>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +39,9 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
 
         vaccNametv.text = intent.getStringExtra("vaccName")
 
-
         btnSchedule.setOnClickListener {
             val intent = Intent(this, ScheduleAppActivity::class.java)
+            intent.putExtra("vaccineName", vaccNametv.text.toString())
             startActivity(intent)
         }
 
@@ -52,9 +52,9 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
             val vaccinesQueries = VaccinesQueries(connection = connection)
             val historyQueries = HistoryQueries(connection = connection)
 
-            val vaccine_Id = vaccinesQueries.getVaccineIdByVaccineName(vaccNametv.text.toString())
-
-            val histories = historyQueries.getHistoryByVaccineId(vaccine_Id)
+            val vaccineName = vaccNametv.text.toString()
+            val vaccineId = vaccinesQueries.getVaccineIdByVaccineName(vaccineName)
+            val histories = historyQueries.getHistoryByVaccineId(vaccineId)
             if (histories != null) {
                 CoroutineScope(Dispatchers.Main).launch {
                     for (history in histories) {
@@ -83,15 +83,14 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
     }
 
     override fun onDeleteClicked(item: VaccineHistoryItem) {
-//        val connection = DbConnect.getConnection()
-//        val historyQueries = HistoryQueries(connection)
-//        CoroutineScope(Dispatchers.IO).launch {
-//            historyQueries.deleteHistory(item.historyId)
-//            vaccinationItems.remove(item)
-//            CoroutineScope(Dispatchers.Main).launch {
-//                vaccinationHistoryAdapter.notifyDataSetChanged()
-//            }
-//        }
+       val connection = DbConnect.getConnection()
+       val historyQueries = HistoryQueries(connection)
+        CoroutineScope(Dispatchers.IO).launch {
+            item.historyId?.let { historyQueries.deleteHistory(it) }
+            vaccinationItems.remove(item)
+            CoroutineScope(Dispatchers.Main).launch {
+                vaccinationHistoryAdapter.notifyDataSetChanged()
+            }
+        }
     }
 }
-//

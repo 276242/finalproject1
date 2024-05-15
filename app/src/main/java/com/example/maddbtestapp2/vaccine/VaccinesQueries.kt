@@ -76,7 +76,23 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         } else {
             vaccines
         }
+
     }
+    fun getAllVaccineNames(): List<String>? {
+        val query = "SELECT `vaccine_name` FROM `vaccine_table`"
+        val preparedStatement = connection.prepareStatement(query)
+        val resultSet = preparedStatement.executeQuery()
+        val vaccineNames = mutableListOf<String>()
+        while (resultSet.next()) {
+            vaccineNames.add(resultSet.getString("vaccine_name"))
+        }
+        return if (vaccineNames.isEmpty()) {
+            null
+        } else {
+            vaccineNames
+        }
+    }
+
 
     override fun getDateAdministeredByVaccineId(id: Int): Date? {
         val query = "SELECT `date_administered` FROM `vaccine_table` WHERE `vaccine_id` = ?"
