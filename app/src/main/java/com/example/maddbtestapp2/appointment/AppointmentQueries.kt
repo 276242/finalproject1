@@ -15,11 +15,10 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
             preparedStatement.setInt(1, id)
             val resultSet: ResultSet = preparedStatement.executeQuery()
             if (resultSet.next()) {
-                val userId = resultSet.getInt("user_id")
                 val vaccineId = resultSet.getInt("vaccine_id")
-                val date = resultSet.getDate("scheduled_date")
-                val time = resultSet.getTime("scheduled_time")
-                Appointment(id, userId, vaccineId, date, time)
+                val appointmentDate = resultSet.getDate("scheduled_date")
+                val appointmentTime = resultSet.getTime("scheduled_time")
+                Appointment(id, vaccineId, appointmentDate, appointmentTime)
             } else {
                 null
             }
@@ -39,9 +38,9 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
             while (resultSet.next()) {
                 val id = resultSet.getInt("schedule_id")
                 val vaccineId = resultSet.getInt("vaccine_id")
-                val date = resultSet.getDate("scheduled_date")
-                val time = resultSet.getTime("scheduled_time")
-                appointments.add(Appointment(id, userId, vaccineId, date, time))
+                val appointmentDate = resultSet.getDate("scheduled_date")
+                val appointmentTime = resultSet.getTime("scheduled_time")
+                Appointment(id, vaccineId, appointmentDate, appointmentTime)
             }
             if (appointments.isEmpty()) null else appointments
         } catch (e: SQLException) {
@@ -59,10 +58,10 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
             val appointments = mutableSetOf<Appointment>()
             while (resultSet.next()) {
                 val id = resultSet.getInt("schedule_id")
-                val userId = resultSet.getInt("user_id")
-                val date = resultSet.getDate("scheduled_date")
-                val time = resultSet.getTime("scheduled_time")
-                appointments.add(Appointment(id, userId, vaccineId, date, time))
+                val vaccineId = resultSet.getInt("vaccine_id")
+                val appointmentDate = resultSet.getDate("scheduled_date")
+                val appointmentTime = resultSet.getTime("scheduled_time")
+                Appointment(id, vaccineId, appointmentDate, appointmentTime)
             }
             if (appointments.isEmpty()) null else appointments
         } catch (e: SQLException) {
@@ -79,11 +78,10 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
             val appointments = mutableSetOf<Appointment>()
             while (resultSet.next()) {
                 val id = resultSet.getInt("schedule_id")
-                val userId = resultSet.getInt("user_id")
                 val vaccineId = resultSet.getInt("vaccine_id")
-                val date = resultSet.getDate("scheduled_date")
-                val time = resultSet.getTime("scheduled_time")
-                appointments.add(Appointment(id, userId, vaccineId, date, time))
+                val appointmentDate = resultSet.getDate("scheduled_date")
+                val appointmentTime = resultSet.getTime("scheduled_time")
+                appointments.add(Appointment(id, vaccineId, appointmentDate, appointmentTime))
             }
             if (appointments.isEmpty()) null else appointments
         } catch (e: SQLException) {
@@ -93,13 +91,12 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
     }
 
     override fun insertAppointment(appointment: Appointment): Boolean {
-        val query = "INSERT INTO scheduled_vaccine_table (user_id, vaccine_id, scheduled_date, scheduled_time) VALUES (?, ?, ?, ?)"
+        val query = "INSERT INTO scheduled_vaccine_table (vaccine_id, scheduled_date, scheduled_time) VALUES (?, ?, ?, ?)"
         return try {
             val preparedStatement: PreparedStatement = connection.prepareStatement(query)
-            preparedStatement.setInt(1, appointment.userId ?: -1)
             preparedStatement.setInt(2, appointment.vaccineId ?: -1)
-            preparedStatement.setDate(3, appointment.date)
-            preparedStatement.setTime(4, appointment.time)
+            preparedStatement.setDate(3, appointment.appointmentDate)
+            preparedStatement.setTime(4, appointment.appointmentTime)
             val result = preparedStatement.executeUpdate()
             result > 0
         } catch (e: SQLException) {
@@ -109,7 +106,7 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
     }
 
     override fun updateAppointment(id: Int, appointment: Appointment): Boolean {
-        val query = "UPDATE scheduled_vaccine_table SET user_id = ?, vaccine_id = ?, scheduled_date = ?, scheduled_time = ? WHERE schedule_id = ?"
+        val query = "UPDATE scheduled_vaccine_table SET vaccine_id = ?, scheduled_date = ?, scheduled_time = ? WHERE schedule_id = ?"
         return try {
             val preparedStatement: PreparedStatement = connection.prepareStatement(query)
             preparedStatement.setInt(1, appointment.userId ?: -1)
