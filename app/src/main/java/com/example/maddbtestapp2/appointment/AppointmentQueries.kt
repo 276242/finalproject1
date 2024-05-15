@@ -91,12 +91,12 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
     }
 
     override fun insertAppointment(appointment: Appointment): Boolean {
-        val query = "INSERT INTO scheduled_vaccine_table (vaccine_id, scheduled_date, scheduled_time) VALUES (?, ?, ?, ?)"
+        val query = "INSERT INTO scheduled_vaccine_table (vaccine_id, scheduled_date, scheduled_time) VALUES (?, ?, ?)"
         return try {
             val preparedStatement: PreparedStatement = connection.prepareStatement(query)
-            preparedStatement.setInt(2, appointment.vaccineId ?: -1)
-            preparedStatement.setDate(3, appointment.appointmentDate)
-            preparedStatement.setTime(4, appointment.appointmentTime)
+            preparedStatement.setInt(1, appointment.vaccineId ?: -1)
+            preparedStatement.setDate(2, appointment.appointmentDate)
+            preparedStatement.setTime(3, appointment.appointmentTime)
             val result = preparedStatement.executeUpdate()
             result > 0
         } catch (e: SQLException) {
@@ -109,11 +109,10 @@ class AppointmentQueries(private val connection: Connection) : AppointmentDAO {
         val query = "UPDATE scheduled_vaccine_table SET vaccine_id = ?, scheduled_date = ?, scheduled_time = ? WHERE schedule_id = ?"
         return try {
             val preparedStatement: PreparedStatement = connection.prepareStatement(query)
-            preparedStatement.setInt(1, appointment.userId ?: -1)
-            preparedStatement.setInt(2, appointment.vaccineId ?: -1)
-            preparedStatement.setDate(3, appointment.date)
-            preparedStatement.setTime(4, appointment.time)
-            preparedStatement.setInt(5, id)
+            preparedStatement.setInt(1, appointment.vaccineId ?: -1)
+            preparedStatement.setDate(2, appointment.appointmentDate)
+            preparedStatement.setTime(3, appointment.appointmentTime)
+            preparedStatement.setInt(4, id)
             val result = preparedStatement.executeUpdate()
             result > 0
         } catch (e: SQLException) {

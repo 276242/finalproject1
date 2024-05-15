@@ -17,7 +17,6 @@ import com.example.maddbtestapp2.databaseConfig.DbConnect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.sql.Date
 
 class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteClickListener {
 
@@ -31,7 +30,7 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
         setContentView(R.layout.activity_vaccination)
 
         val btnSchedule = findViewById<Button>(R.id.btnSchdApp)
-        val homeButton = findViewById<ImageView>(R.id.homeButton2)
+        val homeButton = findViewById<ImageView>(R.id.homeButton3)
 
         vaccNametv = findViewById(R.id.vaccNametv)
         recyclerView = findViewById(R.id.recyclerViewVaccHist)

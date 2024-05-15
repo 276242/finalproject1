@@ -1,17 +1,21 @@
 package com.example.maddbtestapp2
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CalendarView
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
+import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.appointment.Appointment
 import com.example.maddbtestapp2.appointment.AppointmentQueries
 import com.example.maddbtestapp2.databaseConfig.DbConnect
+import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.VaccinesQueries
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +23,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.sql.Date
 import java.sql.Time
-import java.util.*
+import java.util.Calendar
 
 class ScheduleAppActivity : AppCompatActivity() {
 
@@ -41,6 +45,7 @@ class ScheduleAppActivity : AppCompatActivity() {
         datePicker = findViewById(R.id.datePickerSchd)
         timePicker = findViewById(R.id.timePickerSchd)
         saveButton = findViewById(R.id.btnSave2)
+        val homeButton = findViewById<ImageView>(R.id.homeButton3)
 
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()
@@ -83,7 +88,7 @@ class ScheduleAppActivity : AppCompatActivity() {
         }
 
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
-            appointmentTime = String.format("%02d:%02d", hourOfDay, minute)
+            appointmentTime = String.format("%02d:%02d:00", hourOfDay, minute)
         }
 
         saveButton.setOnClickListener {
@@ -96,8 +101,8 @@ class ScheduleAppActivity : AppCompatActivity() {
                 val vaccineId = vaccinesQueries.getVaccineIdByVaccineName(selectedVaccineName)
                 val appointment = Appointment(
                     vaccineId = vaccineId,
-                    appointmentDate = java.sql.Date(appointmentDate),
-                    appointmentTime = java.sql.Time.valueOf(appointmentTime)
+                    appointmentDate = Date(appointmentDate),
+                    appointmentTime = Time.valueOf(appointmentTime)
                 )
 
                 appointmentQueries.insertAppointment(appointment)
@@ -107,9 +112,19 @@ class ScheduleAppActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     val intent = Intent(this@ScheduleAppActivity, MainActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
             }
         }
+
+        homeButton.setOnClickListener {
+            goToMainActivity()
+        }
+
+    }
+
+    private fun goToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
