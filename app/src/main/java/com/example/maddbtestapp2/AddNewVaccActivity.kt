@@ -31,15 +31,12 @@ class AddNewVaccActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_vacc)
 
-        // Initialize views
         inputVaccName = findViewById(R.id.editVaccName)
         val btnAdministeredDate = findViewById<Button>(R.id.btnSetUpDate)
         val btnNextDoseDate = findViewById<Button>(R.id.btnSetUpDate2)
         val homeButton = findViewById<ImageView>(R.id.homeButton2)
         val scheduleButton = findViewById<ImageView>(R.id.scheduleButton3)
 
-
-        // Set up DatePickerDialog for administered date
         btnAdministeredDate.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 this,
@@ -56,7 +53,6 @@ class AddNewVaccActivity : BaseActivity() {
             datePickerDialog.show()
         }
 
-        // Set up DatePickerDialog for next dose date
         btnNextDoseDate.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 this,
@@ -72,12 +68,10 @@ class AddNewVaccActivity : BaseActivity() {
             datePickerDialog.show()
         }
 
-        // Save button click listener
         val btnSave = findViewById<Button>(R.id.btnSave)
         btnSave.setOnClickListener {
             val vaccName = inputVaccName.text.toString()
 
-            // Create Vaccines object
             val vaccine = Vaccines(
                 id = null,
                 vaccineName = vaccName,
@@ -85,13 +79,11 @@ class AddNewVaccActivity : BaseActivity() {
                 nextDoseDate = java.sql.Date(nextDoseDate.time)
             )
 
-            // Insert vaccine into database
             CoroutineScope(Dispatchers.IO).launch {
                 val connection = DbConnect.getConnection()
                 val vaccinesQueries = VaccinesQueries(connection = connection)
                 vaccinesQueries.insertVaccine(vaccine)
 
-                // Navigate back to MainActivity
                 CoroutineScope(Dispatchers.Main).launch {
                     val intent = Intent(this@AddNewVaccActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -99,7 +91,6 @@ class AddNewVaccActivity : BaseActivity() {
             }
         }
 
-        // Home button click listener
         homeButton.setOnClickListener {
             goToMainActivity()
         }
@@ -124,4 +115,3 @@ class AddNewVaccActivity : BaseActivity() {
         finish()
     }
 }
-//

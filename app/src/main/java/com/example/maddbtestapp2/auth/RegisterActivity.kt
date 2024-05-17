@@ -1,3 +1,13 @@
+/**
+ * RegisterActivity is a class that provides functionality for user registration.
+ *
+ * This class provides methods to validate registration details and register the user.
+ *
+ * @property inputNameR The EditText field for the name input.
+ * @property inputEmailR The EditText field for the email input.
+ * @property inputPasswordR The EditText field for the password input.
+ * @property inputPasswordRepeat The EditText field for the password repeat input.
+ */
 package com.example.maddbtestapp2.auth
 
 import android.content.Intent
@@ -5,7 +15,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import com.example.maddbtestapp2.BaseActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.firestore.FireStoreClass
@@ -20,6 +29,11 @@ class RegisterActivity : BaseActivity() {
     private var inputPasswordR: EditText? = null
     private var inputPasswordRepeat: EditText? = null
 
+    /**
+     * Initializes the activity, sets the content view and initializes the UI elements.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -43,12 +57,20 @@ class RegisterActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Navigates to the LoginActivity.
+     */
     fun goToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    /**
+     * Validates the registration details entered by the user.
+     *
+     * @return True if the registration details are valid, false otherwise.
+     */
     private fun validateRegisterDetails(): Boolean {
         val name = inputNameR?.text?.toString()?.trim { it <= ' ' }
         val email = inputEmailR?.text?.toString()?.trim { it <= ' ' }
@@ -99,6 +121,9 @@ class RegisterActivity : BaseActivity() {
     }
 
 
+    /**
+     * Registers the user using the entered registration details.
+     */
     private fun registerUser() {
         if (validateRegisterDetails()) {
             val name: String = inputNameR?.text.toString().trim { it <= ' ' }
@@ -111,7 +136,7 @@ class RegisterActivity : BaseActivity() {
                     if (task.isSuccessful) {
                         val firebaseUser: FirebaseUser = task.result!!.user!!
                         showErrorSnackBar(
-                            "You have successfully registered. Your user id is ${firebaseUser.uid}",
+                            "You are registered successfully",
                             true
                         )
 
@@ -121,20 +146,10 @@ class RegisterActivity : BaseActivity() {
                         )
                         FireStoreClass().registerUserFS(this@RegisterActivity, user)
 
-
-                        userRegistrationSuccess()
-
                     } else {
                         showErrorSnackBar(task.exception!!.message.toString(), false)
                     }
                 }
         }
     }
-
-
-    fun userRegistrationSuccess(){
-        Toast.makeText(this@RegisterActivity, resources.getString(R.string.register_success),
-            Toast.LENGTH_LONG).show()
-    }
-
 }

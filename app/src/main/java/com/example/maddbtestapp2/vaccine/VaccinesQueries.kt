@@ -149,9 +149,4 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         preparedStatement.setInt(1, id)
         return preparedStatement.executeUpdate() > 0
     }
-
-    //
-    //
 }
-//
-//

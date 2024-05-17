@@ -1,6 +1,5 @@
 package com.example.maddbtestapp2
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
@@ -11,12 +10,9 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
-import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.appointment.Appointment
 import com.example.maddbtestapp2.appointment.AppointmentQueries
 import com.example.maddbtestapp2.databaseConfig.DbConnect
-
-import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.VaccinesQueries
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -78,7 +74,6 @@ class ScheduleAppActivity : AppCompatActivity() {
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
-                        // Handle nothing selected
                     }
                 }
             }
@@ -130,7 +125,6 @@ class ScheduleAppActivity : AppCompatActivity() {
         scheduleButton.setOnClickListener {
             goToScheduleActivity()
         }
-
 
     }
 

@@ -1,3 +1,20 @@
+/**
+ * MainActivity is the entry point of the application.
+ *
+ * This activity is responsible for displaying the list of vaccines a user has taken and provides options to add new vaccines.
+ * It fetches the list of vaccines from Firestore and displays them in a RecyclerView.
+ * Each item in the RecyclerView represents a vaccine and clicking on it navigates the user to the VaccinationActivity where the details of the vaccine can be viewed.
+ * The FloatingActionButton on this screen is used to add a new vaccine, clicking on it navigates the user to the AddNewVaccActivity.
+ * The homeButton navigates the user back to the MainActivity and the scheduleButton navigates the user to the ScheduleAppActivity.
+ *
+ * @property recyclerView The RecyclerView used to display the list of vaccines.
+ * @property fabAddVaccine The FloatingActionButton used to add a new vaccine.
+ * @property vaccinationAdapter The adapter used to populate the RecyclerView.
+ * @property itemList The list of vaccines fetched from Firestore.
+ * @property connection The connection to the database.
+ * @property vaccinesQueries The queries used to interact with the database.
+ * @property firestoreRepository The repository used to interact with Firestore.
+ */
 package com.example.maddbtestapp2
 
 import FirestoreRepository
@@ -34,10 +51,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Add a user to the "users" collection
-        firestoreRepository.addUser("John Doe", "johndoe@example.com")
-
-        // Fetch all users from the "users" collection
         firestoreRepository.fetchUsers()
 
         recyclerView = findViewById(R.id.recyclerViewVacc)

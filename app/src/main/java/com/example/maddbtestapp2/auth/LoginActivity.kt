@@ -1,3 +1,12 @@
+/**
+ * LoginActivity is a class that provides functionality for user login.
+ *
+ * This class provides methods to validate login details and log in the user.
+ *
+ * @property inputEmailL The EditText field for the email input.
+ * @property inputPasswordL The EditText field for the password input.
+ * @property loginButton The Button for the login action.
+ */
 package com.example.maddbtestapp2.auth
 
 import android.content.Intent
@@ -17,6 +26,11 @@ class LoginActivity : BaseActivity() {
     private var inputPasswordL: EditText? = null
     private var loginButton: Button? = null
 
+    /**
+     * Initializes the activity, sets the content view and initializes the UI elements.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -33,12 +47,22 @@ class LoginActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Navigates to the RegisterActivity.
+     *
+     * @param view The view that was clicked.
+     */
     private fun goToRegister(view: View) {
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    /**
+     * Validates the login details entered by the user.
+     *
+     * @return True if the login details are valid, false otherwise.
+     */
     private fun validateLoginDetails(): Boolean {
         val email = inputEmailL?.text?.toString()?.trim { it <= ' ' }
         val password = inputPasswordL?.text?.toString()?.trim { it <= ' ' }
@@ -56,6 +80,9 @@ class LoginActivity : BaseActivity() {
         return true
     }
 
+    /**
+     * Logs in the user using the entered login details.
+     */
     private fun loginUser() {
         if (validateLoginDetails()) {
             val email = inputEmailL?.text.toString().trim { it <= ' ' }
@@ -66,7 +93,6 @@ class LoginActivity : BaseActivity() {
                     if (task.isSuccessful) {
                         showErrorToast("Login successful!")
 
-                        // Start UserActivity to fetch users from Firebase and save to local database
                         val intent = Intent(this, UserActivity::class.java)
                         startActivity(intent)
                         finish()

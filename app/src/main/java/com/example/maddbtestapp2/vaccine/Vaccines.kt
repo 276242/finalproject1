@@ -6,5 +6,3 @@ data class Vaccines(
     var administeredDate: java.sql.Date,
     var nextDoseDate: java.sql.Date
 )
-//
-//
