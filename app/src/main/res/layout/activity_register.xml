@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/immunify" />
 
         <EditText
             android:id="@+id/inputNameR"
@@ -85,23 +85,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputPasswordR" />
 
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="123dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="147dp"
-            android:layout_marginEnd="147dp"
-            android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/button_black"
-            android:clickable="true"
-            android:text="SIGN UP"
-            android:textSize="19sp"
-            app:cornerRadius="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputPasswordRepeat" />
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="123dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="147dp"
+        android:layout_marginEnd="147dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/button_purple"
+        android:clickable="true"
+        android:text="SIGN UP"
+        android:textSize="19sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPasswordRepeat" />
 
         <TextView
             android:id="@+id/textView7"
