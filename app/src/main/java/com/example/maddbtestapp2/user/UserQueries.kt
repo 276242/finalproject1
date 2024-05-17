@@ -29,10 +29,11 @@ class UserQueries(private val connection: Connection) : UserDAO {
     }
 
     override fun insertUser(user: User): Boolean {
-        val query = "INSERT INTO user_table (name, email) VALUES (?, ?)"
+        val query = "INSERT INTO user_table (user_id, name, email) VALUES (?, ?, ?)"
         val preparedStatement = connection.prepareStatement(query)
-        preparedStatement.setString(1, user.name)
-        preparedStatement.setString(2, user.email)
+        preparedStatement.setInt(1, user.user_id)
+        preparedStatement.setString(2, user.name)
+        preparedStatement.setString(3, user.email)
         return preparedStatement.executeUpdate() > 0
     }
 
@@ -60,4 +61,3 @@ class UserQueries(private val connection: Connection) : UserDAO {
         )
     }
 }
-

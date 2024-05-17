@@ -28,7 +28,7 @@ class UserActivity : AppCompatActivity() {
                         User(
                             user_id = userFB.id.toInt(),
                             name = userFB.name,
-                            email = "" // Set a default or placeholder email
+                            email = userFB.email
                         )
                     }
                     saveUsersToLocalDatabase(users)
