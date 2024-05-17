@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">maddb test app 2</string>
+    <string name="app_name">Final Project 1</string>
     <string name="err_empty_input_meds_setup">"Password doesn't match"</string>
     <string name="err_msg_enter_name">Please enter your name</string>
     <string name="err_msg_enter_email">Please enter your E-mail</string>

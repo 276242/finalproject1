@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "maddb test app 2"
+rootProject.name = "finalproject1"
 include(":app")
  
