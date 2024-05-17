@@ -15,7 +15,6 @@ import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.appointment.Appointment
 import com.example.maddbtestapp2.appointment.AppointmentQueries
 import com.example.maddbtestapp2.databaseConfig.DbConnect
-import com.example.maddbtestapp2.notifications.NotificationActivity
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.VaccinesQueries
 import kotlinx.coroutines.CoroutineScope
@@ -47,6 +46,8 @@ class ScheduleAppActivity : AppCompatActivity() {
         timePicker = findViewById(R.id.timePickerSchd)
         saveButton = findViewById(R.id.btnSave2)
         val homeButton = findViewById<ImageView>(R.id.homeButton3)
+        val scheduleButton = findViewById<ImageView>(R.id.scheduleButton3)
+
 
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()
@@ -111,10 +112,12 @@ class ScheduleAppActivity : AppCompatActivity() {
                 connection.close()
 
                 withContext(Dispatchers.Main) {
-                    val intent = Intent(this@ScheduleAppActivity, NotificationActivity::class.java)
+                    val intent = Intent(this@ScheduleAppActivity, MainActivity::class.java)
+                    print("scheduleId: ${appointment.id.toString()}")
                     intent.putExtra("vaccineName", selectedVaccineName)
                     intent.putExtra("scheduleId", appointment.id)
                     startActivity(intent)
+                    finish()
                 }
             }
         }
@@ -123,10 +126,20 @@ class ScheduleAppActivity : AppCompatActivity() {
             goToMainActivity()
         }
 
+        scheduleButton.setOnClickListener {
+            goToScheduleActivity()
+        }
+
     }
 
     private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun goToScheduleActivity() {
+        val intent = Intent(this, ScheduleAppActivity::class.java)
         startActivity(intent)
         finish()
     }

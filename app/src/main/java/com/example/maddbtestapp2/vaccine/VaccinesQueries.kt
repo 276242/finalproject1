@@ -135,6 +135,14 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         return preparedStatement.executeUpdate() > 0
     }
 
+    override fun updateVaccineName(id: Int, newName: String): Boolean {
+        val query = "UPDATE `vaccine_table` SET `vaccine_name` = ? WHERE `vaccine_id` = ?"
+        val preparedStatement = connection.prepareStatement(query)
+        preparedStatement.setString(1, newName)
+        preparedStatement.setInt(2, id)
+        return preparedStatement.executeUpdate() > 0
+    }
+
     override fun deleteVaccine(id: Int): Boolean {
         val query = "DELETE FROM `vaccine_table` WHERE 'vaccine_id' = ?"
         val preparedStatement = connection.prepareStatement(query)

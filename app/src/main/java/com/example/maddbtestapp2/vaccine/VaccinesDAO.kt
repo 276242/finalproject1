@@ -12,6 +12,7 @@ interface VaccinesDAO {
     fun getAllVaccines(): Set<Vaccines?>?
     fun insertVaccine(vaccine: Vaccines) : Boolean
     fun updateVaccine(id: Int, vaccine: Vaccines) : Boolean
+    fun updateVaccineName(id: Int, vaccineName: String) : Boolean
     fun deleteVaccine(id: Int) : Boolean
 }
 //

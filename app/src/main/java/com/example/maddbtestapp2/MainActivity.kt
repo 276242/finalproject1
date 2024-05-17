@@ -37,7 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewVacc)
         fabAddVaccine = findViewById(R.id.addNewVaccineFAB)
-        val homeButton = findViewById<ImageView>(R.id.homeButton)
+        val homeButton = findViewById<ImageView>(R.id.homeButton2)
+        val scheduleButton = findViewById<ImageView>(R.id.scheduleButton3)
 
         vaccinationAdapter = VaccinationAdapter(itemList) { vaccination ->
             val intent = Intent(this, VaccinationActivity::class.java)
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
         homeButton.setOnClickListener {
             goToMainActivity()
         }
+
+        scheduleButton.setOnClickListener {
+            goToScheduleActivity()
+        }
     }
 
     /**
@@ -77,6 +82,12 @@ class MainActivity : AppCompatActivity() {
      */
     private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun goToScheduleActivity() {
+        val intent = Intent(this, ScheduleAppActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MedSetUpActivity">
+    tools:context=".AddNewVaccActivity">
 
     <View
         android:id="@+id/divider7"
@@ -21,35 +21,39 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/bg_black"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
-
-        <View
-            android:id="@+id/divider9"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/white"
+        <ImageButton
+            android:id="@+id/homeButton2"
+            android:layout_width="211dp"
+            android:layout_height="62dp"
+            android:backgroundTint="@color/button_black"
+            android:fadingEdge="horizontal"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/homeButton3"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/scheduleButton3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/icon_home" />
 
         <ImageButton
-            android:id="@+id/homeButton3"
-            android:layout_width="410dp"
-            android:layout_height="57dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
+            android:id="@+id/scheduleButton3"
+            android:layout_width="208dp"
+            android:layout_height="61dp"
+            android:layout_marginEnd="1dp"
             android:backgroundTint="@color/button_black"
             android:fadingEdge="horizontal"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/homeButton2"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_home" />
+            app:srcCompat="@drawable/schedule_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.history.HistoryQueries
@@ -29,8 +31,10 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vaccination)
 
-        val btnSchedule = findViewById<Button>(R.id.btnSchdApp)
-        val homeButton = findViewById<ImageView>(R.id.homeButton3)
+        val homeButton = findViewById<ImageView>(R.id.homeButton4)
+        val scheduleButton = findViewById<ImageView>(R.id.scheduleButton4)
+
+        val editNameButton = findViewById<Button>(R.id.btnEditName)
 
         vaccNametv = findViewById(R.id.vaccNametv)
         recyclerView = findViewById(R.id.recyclerViewVaccHist)
@@ -38,11 +42,6 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
 
         vaccNametv.text = intent.getStringExtra("vaccName")
 
-        btnSchedule.setOnClickListener {
-            val intent = Intent(this, ScheduleAppActivity::class.java)
-            intent.putExtra("vaccineName", vaccNametv.text.toString())
-            startActivity(intent)
-        }
 
         vaccinationHistoryAdapter = VaccineHistoryAdapter(vaccinationItems, this, vaccNametv.text.toString())
 
@@ -73,10 +72,52 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
         homeButton.setOnClickListener {
             goToMainActivity()
         }
+
+        scheduleButton.setOnClickListener {
+            goToScheduleActivity()
+        }
+
+        editNameButton.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            val dialogLayout = inflater.inflate(R.layout.dialog_edit_name, null)
+            val editTextNewName = dialogLayout.findViewById<EditText>(R.id.editTextNewName)
+
+            editTextNewName.setText(vaccNametv.text.toString())
+
+            builder.setTitle("Edit Vaccine Name")
+            builder.setView(dialogLayout)
+            builder.setPositiveButton("Update") { dialogInterface, i ->
+                val newVaccineName = editTextNewName.text.toString()
+                CoroutineScope(Dispatchers.IO).launch {
+                    val connection = DbConnect.getConnection()
+                    val vaccinesQueries = VaccinesQueries(connection = connection)
+                    val vaccineName = vaccNametv.text.toString()
+                    val vaccineId = vaccinesQueries.getVaccineIdByVaccineName(vaccineName)
+                    vaccinesQueries.updateVaccineName(vaccineId, newVaccineName)
+                    connection.close()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        vaccNametv.text = newVaccineName
+                    }
+                }
+            }
+            builder.setNegativeButton("Cancel") { dialogInterface, i ->
+                // User cancelled the dialog, no action needed
+            }
+
+            builder.show()
+        }
+
     }
 
     private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun goToScheduleActivity() {
+        val intent = Intent(this, ScheduleAppActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -35,7 +35,9 @@ class AddNewVaccActivity : BaseActivity() {
         inputVaccName = findViewById(R.id.editVaccName)
         val btnAdministeredDate = findViewById<Button>(R.id.btnSetUpDate)
         val btnNextDoseDate = findViewById<Button>(R.id.btnSetUpDate2)
-        val homeButton = findViewById<ImageView>(R.id.homeButton3)
+        val homeButton = findViewById<ImageView>(R.id.homeButton2)
+        val scheduleButton = findViewById<ImageView>(R.id.scheduleButton3)
+
 
         // Set up DatePickerDialog for administered date
         btnAdministeredDate.setOnClickListener {
@@ -101,6 +103,10 @@ class AddNewVaccActivity : BaseActivity() {
         homeButton.setOnClickListener {
             goToMainActivity()
         }
+
+        scheduleButton.setOnClickListener {
+            goToScheduleActivity()
+        }
     }
 
     /**
@@ -108,6 +114,12 @@ class AddNewVaccActivity : BaseActivity() {
      */
     private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun goToScheduleActivity() {
+        val intent = Intent(this, ScheduleAppActivity::class.java)
         startActivity(intent)
         finish()
     }
