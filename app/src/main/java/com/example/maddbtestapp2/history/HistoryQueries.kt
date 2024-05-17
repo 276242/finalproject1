@@ -2,6 +2,8 @@ package com.example.maddbtestapp2.history
 
 import java.sql.Connection
 import java.sql.Date
+import java.sql.SQLException
+import java.sql.Statement
 
 class HistoryQueries(private val connection : Connection) : HistoryDAO {
     override fun getHistoryById(id: Int): History? {
@@ -100,6 +102,21 @@ class HistoryQueries(private val connection : Connection) : HistoryDAO {
         preparedStatement.setDate(2, history.administeredDate)
         preparedStatement.setInt(3, id)
         return preparedStatement.executeUpdate() > 0
+    }
+
+    fun addNewRecord(vaccineId: Int, administeredDate: Date): Int {
+        val sql = "INSERT INTO history_table (vaccine_id, date_administered) VALUES (?, ?)"
+        val preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        preparedStatement.setInt(1, vaccineId)
+        preparedStatement.setDate(2, administeredDate)
+        preparedStatement.executeUpdate()
+
+        val generatedKeys = preparedStatement.generatedKeys
+        if (generatedKeys.next()) {
+            return generatedKeys.getInt(1)
+        } else {
+            throw SQLException("Creating record failed, no ID obtained.")
+        }
     }
 
     override fun deleteHistory(id: Int): Boolean {

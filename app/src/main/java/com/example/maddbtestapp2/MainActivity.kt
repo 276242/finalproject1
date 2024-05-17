@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         userActivity.fetchUsersFromFirebaseAndSaveToDatabase()
 
         recyclerView = findViewById(R.id.recyclerViewVacc)
-        fabAddVaccine = findViewById(R.id.addNewVaccineFAB)
+        fabAddVaccine = findViewById(R.id.addNewAdmDateFAB)
         val homeButton = findViewById<ImageView>(R.id.homeButton2)
         val scheduleButton = findViewById<ImageView>(R.id.scheduleButton3)
 
