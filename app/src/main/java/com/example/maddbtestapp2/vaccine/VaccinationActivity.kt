@@ -1,3 +1,8 @@
+/**
+ * VaccinationActivity is an activity class that manages the vaccination history of a user.
+ * It provides functionality to view, add, and delete vaccination records.
+ * This class implements the OnDeleteClickListener interface from the VaccineHistoryAdapter to handle delete operations on the vaccination records.
+ */
 package com.example.maddbtestapp2.vaccine
 
 import android.content.Intent
@@ -33,6 +38,9 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
     private val vaccinationItems = mutableListOf<VaccineHistoryItem>()
     private var vaccineId: Int = 0
 
+    /**
+     * Initializes the activity, sets up the UI, and fetches the vaccination history from the database.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vaccination)
@@ -159,18 +167,28 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
 
     }
 
+    /**
+     * Navigates to the MainActivity.
+     */
     private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    /**
+     * Navigates to the ScheduleAppActivity.
+     */
     private fun goToScheduleActivity() {
         val intent = Intent(this, ScheduleAppActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    /**
+     * Handles the deletion of a vaccination record when the delete button is clicked.
+     * @param item The VaccineHistoryItem to be deleted.
+     */
     override fun onDeleteClicked(item: VaccineHistoryItem) {
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()

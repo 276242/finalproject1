@@ -10,15 +10,25 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * UserActivity is an activity that fetches user data from Firebase and saves it to a local database.
+ */
 class UserActivity : AppCompatActivity() {
 
     private val firestoreClass = FireStoreClass()
 
+    /**
+     * Called when the activity is starting.
+     * This is where most initialization should go.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fetchUsersFromFirebaseAndSaveToDatabase()
     }
 
+    /**
+     * Fetches users from Firebase and saves them to the local database.
+     */
     fun fetchUsersFromFirebaseAndSaveToDatabase() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -41,6 +51,10 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Saves a list of users to the local database.
+     * @param users The list of users to be saved.
+     */
     private suspend fun saveUsersToLocalDatabase(users: List<User>) {
         val connection = DbConnect.getConnection()
         val userQueries = UserQueries(connection)

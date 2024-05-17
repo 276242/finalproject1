@@ -92,15 +92,15 @@ class RegisterActivity : BaseActivity() {
             return false
         }
 
-        if (password.length < 8) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_password_too_short), false)
-            return false
-        }
+        if (password.length < 8 ){
+                showErrorSnackBar(resources.getString(R.string.err_msg_password_too_short), false)
+                return false
+            }
 
-        if (!password.any { it.isUpperCase() }) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_no_uppercase), false)
-            return false
-        }
+            if (!password.any { it.isUpperCase() }) {
+                showErrorSnackBar(resources.getString(R.string.err_msg_no_uppercase), false)
+                return false
+            }
 
         if (!password.any { it.isDigit() }) {
             showErrorSnackBar(resources.getString(R.string.err_msg_no_digit), false)

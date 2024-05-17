@@ -4,10 +4,16 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
 
+/**
+ * DbConnect is a utility class that provides a method to establish a connection to a MySQL database.
+ */
 class DbConnect {
     companion object {
         val connectionUrl: String
 
+        /**
+         * Initializes the connection URL for the MySQL database.
+         */
         init {
             val urlSB = StringBuilder("jdbc:mysql://")
             urlSB.append("sql11.freesqldatabase.com:3306/")
@@ -19,6 +25,11 @@ class DbConnect {
             connectionUrl = urlSB.toString()
         }
 
+        /**
+         * Establishes a connection to the MySQL database.
+         * @return Connection object representing the database connection.
+         * @throws RuntimeException if the connection fails or the JDBC driver cannot be loaded.
+         */
         fun getConnection(): Connection {
             try {
                 Class.forName("com.mysql.jdbc.Driver")

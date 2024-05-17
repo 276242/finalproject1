@@ -1,4 +1,5 @@
 package com.example.maddbtestapp2
+
 import FirestoreRepository
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.sql.Connection
 
+/**
+ * The main activity of the application, displaying a list of vaccinations.
+ * Users can add new vaccinations and view details of existing ones.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -35,16 +40,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
 
-
+        // Fetch users from Firestore
         firestoreRepository.fetchUsers()
 
+        // Initialize views
         recyclerView = findViewById(R.id.recyclerViewVacc)
         fabAddVaccine = findViewById(R.id.addNewAdmDateFAB)
         val homeButton = findViewById<ImageView>(R.id.homeButton2)
         val scheduleButton = findViewById<ImageView>(R.id.scheduleButton3)
 
+        // Initialize adapter
         vaccinationAdapter = VaccinationAdapter(itemList) { vaccination ->
             val intent = Intent(this, VaccinationActivity::class.java)
             intent.putExtra("id", vaccination.id!!.toInt())
@@ -54,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Fetch data from database using coroutines
         CoroutineScope(Dispatchers.IO).launch {
             val connection = DbConnect.getConnection()
             val vaccinesQueries = VaccinesQueries(connection = connection)
@@ -68,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Set click listeners
         fabAddVaccine.setOnClickListener {
             val intent = Intent(this, AddNewVaccActivity::class.java)
             startActivity(intent)
@@ -82,12 +90,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Navigate to the main activity.
+     */
     private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    /**
+     * Navigate to the schedule activity.
+     */
     private fun goToScheduleActivity() {
         val intent = Intent(this, ScheduleAppActivity::class.java)
         startActivity(intent)

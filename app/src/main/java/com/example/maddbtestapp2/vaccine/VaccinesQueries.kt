@@ -4,7 +4,13 @@ import java.sql.Connection
 import java.sql.Date
 import java.sql.SQLException
 
+/**
+ * Class for performing database operations related to vaccines.
+ */
 class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
+    /**
+     * Retrieves a vaccine by its id.
+     */
     override fun getVaccineById(id: Int): Vaccines? {
         val query = "SELECT * FROM vaccine_table WHERE vaccine_id = ?"
         val preparedStatement = connection.prepareStatement(query)
@@ -21,6 +27,9 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         return null
     }
 
+    /**
+     * Retrieves a vaccine by its name.
+     */
     override fun getVaccineByName(vaccineName: String): Vaccines? {
         val query = "SELECT * FROM vaccine_table WHERE vaccine_name = ?"
         val preparedStatement = connection.prepareStatement(query)
@@ -37,6 +46,9 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         return null
     }
 
+    /**
+     * Checks if a vaccine exists by its name.
+     */
     override fun doesVaccineExist(vaccineName: String): Boolean {
         val query = "SELECT * FROM `vaccine_table` WHERE `vaccine_name` = ?"
         val preparedStatement = connection.prepareStatement(query)
@@ -45,6 +57,9 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         return resultSet.next()
     }
 
+    /**
+     * Retrieves a vaccine id by its name.
+     */
     override fun getVaccineIdByVaccineName(vaccineName: String): Int {
         val query = "SELECT `vaccine_id` FROM `vaccine_table` WHERE `vaccine_name` = ?"
         val preparedStatement = connection.prepareStatement(query)
@@ -56,6 +71,9 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         return -1
     }
 
+    /**
+     * Retrieves all vaccines.
+     */
     override fun getAllVaccines(): Set<Vaccines?>? {
         val query = "SELECT * FROM `vaccine_table`"
         val preparedStatement = connection.prepareStatement(query)
@@ -76,8 +94,11 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         } else {
             vaccines
         }
-
     }
+
+    /**
+     * Retrieves all vaccine names.
+     */
     fun getAllVaccineNames(): List<String>? {
         val query = "SELECT `vaccine_name` FROM `vaccine_table`"
         val preparedStatement = connection.prepareStatement(query)
@@ -93,7 +114,9 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         }
     }
 
-
+    /**
+     * Retrieves the date a vaccine was administered by its id.
+     */
     override fun getDateAdministeredByVaccineId(id: Int): Date? {
         val query = "SELECT `date_administered` FROM `vaccine_table` WHERE `vaccine_id` = ?"
         val preparedStatement = connection.prepareStatement(query)
@@ -105,6 +128,9 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         return null
     }
 
+    /**
+     * Inserts a new vaccine.
+     */
     override fun insertVaccine(vaccine: Vaccines): Boolean {
         try {
             if (doesVaccineExist(vaccine.vaccineName)) {
@@ -127,6 +153,10 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
             return false
         }
     }
+
+    /**
+     * Updates an existing vaccine.
+     */
     override fun updateVaccine(id: Int, vaccine: Vaccines): Boolean {
         val query = "UPDATE `vaccine_table` SET `date_administered = ? WHERE `vaccine_name = ?"
         val preparedStatement = connection.prepareStatement(query)
@@ -135,6 +165,9 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         return preparedStatement.executeUpdate() > 0
     }
 
+    /**
+     * Updates the name of an existing vaccine.
+     */
     override fun updateVaccineName(id: Int, newName: String): Boolean {
         val query = "UPDATE `vaccine_table` SET `vaccine_name` = ? WHERE `vaccine_id` = ?"
         val preparedStatement = connection.prepareStatement(query)
@@ -143,6 +176,9 @@ class VaccinesQueries(private val connection : Connection) : VaccinesDAO {
         return preparedStatement.executeUpdate() > 0
     }
 
+    /**
+     * Deletes a vaccine by its id.
+     */
     override fun deleteVaccine(id: Int): Boolean {
         val query = "DELETE FROM `vaccine_table` WHERE 'vaccine_id' = ?"
         val preparedStatement = connection.prepareStatement(query)
