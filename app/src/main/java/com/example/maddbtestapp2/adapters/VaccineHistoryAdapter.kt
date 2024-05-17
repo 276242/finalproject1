@@ -24,7 +24,7 @@ import java.util.GregorianCalendar
 import java.util.Locale
 
 class VaccineHistoryAdapter(
-    var items: List<VaccineHistoryItem>,
+    var items: MutableList<VaccineHistoryItem>,
     private val onDeleteClickListener: OnDeleteClickListener,
     private val vaccineName: String
 ) : RecyclerView.Adapter<VaccineHistoryAdapter.ViewHolder>() {
@@ -93,7 +93,7 @@ class VaccineHistoryAdapter(
                 historyQueries.deleteHistory(item.historyId!!)
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    items = items.filter { it.historyId != item.historyId }
+                    items = items.filter { it.historyId != item.historyId }.toMutableList()
                     notifyItemRemoved(position)
                 }
             }
@@ -101,6 +101,11 @@ class VaccineHistoryAdapter(
     }
 
     override fun getItemCount() = items.size
+
+    fun addNewItem(item: VaccineHistoryItem) {
+        items.add(item)
+        notifyItemInserted(items.size - 1)
+    }
 }
 //
 //
