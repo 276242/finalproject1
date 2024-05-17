@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="300dp"
+    android:background="@color/back_white"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -9,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_gravity="center|center_horizontal|top|center_vertical"
         android:layout_marginTop="30dp"
+        android:background="@color/bg_purple"
+        android:backgroundTint="@color/bg_purple"
         android:calendarViewShown="false"
         android:datePickerMode="spinner" />
 

@@ -45,60 +45,111 @@ class VaccineHistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        if (position < items.size) {
+            val item = items[position]
 
-        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            val justDate = dateFormat.format(item.administrationDate)
+            holder.vaccAdminDatetv.text = "Administered on: $justDate"
 
-        val justDate = dateFormat.format(item.administrationDate)
-        holder.vaccAdminDatetv.text = "Administered on: $justDate"
+            holder.editButton.tag = item.historyId
 
-        holder.editButton.tag = item.historyId
+            holder.editButton.setOnClickListener {
+                val calendar = Calendar.getInstance()
+                calendar.time = item.administrationDate
+                val year = calendar.get(Calendar.YEAR)
+                val month = calendar.get(Calendar.MONTH)
+                val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        holder.editButton.setOnClickListener {
-            println(item.historyId)
-            val calendar = Calendar.getInstance()
-            calendar.time = item.administrationDate
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
+                DatePickerDialog(it.context, { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                    val selectedDate = GregorianCalendar(selectedYear, selectedMonth, selectedDayOfMonth).time
+                    item.administrationDate = java.sql.Date(selectedDate.time)
+                    holder.vaccAdminDatetv.text = "Administered on: ${dateFormat.format(selectedDate)}"
 
-            DatePickerDialog(it.context, { _, selectedYear, selectedMonth, selectedDayOfMonth ->
-                val selectedDate = GregorianCalendar(selectedYear, selectedMonth, selectedDayOfMonth).time
-                println(item.administrationDate)
-                item.administrationDate = java.sql.Date(selectedDate.time)
-                println(item.administrationDate)
-                holder.vaccAdminDatetv.text = "Administered on: ${dateFormat.format(selectedDate)}"
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val connection = DbConnect.getConnection()
+                        val historyQueries = HistoryQueries(connection)
 
+                        items[position].historyId?.let { historyId ->
+                            historyQueries.updateAdministrationDate(historyId, items[position].administrationDate)
+                        }
+                    }
+
+                    notifyItemChanged(position)
+                }, year, month, day).show()
+            }
+
+            holder.deleteButton.setOnClickListener {
+                onDeleteClickListener.onDeleteClicked(item)
 
                 CoroutineScope(Dispatchers.IO).launch {
                     val connection = DbConnect.getConnection()
                     val historyQueries = HistoryQueries(connection)
+                    historyQueries.deleteHistory(item.historyId!!)
 
-                    items[position].historyId?.let { historyId ->
-                        historyQueries.updateAdministrationDate(historyId, items[position].administrationDate)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        items = items.filter { it.historyId != item.historyId }.toMutableList()
+                        notifyItemRemoved(position)
                     }
-                }
-
-                notifyItemChanged(position)
-            }, year, month, day).show()
-        }
-
-        holder.deleteButton.setOnClickListener {
-            println(item.historyId)
-            onDeleteClickListener.onDeleteClicked(item)
-
-            CoroutineScope(Dispatchers.IO).launch {
-                val connection = DbConnect.getConnection()
-                val historyQueries = HistoryQueries(connection)
-                historyQueries.deleteHistory(item.historyId!!)
-
-                CoroutineScope(Dispatchers.Main).launch {
-                    items = items.filter { it.historyId != item.historyId }.toMutableList()
-                    notifyItemRemoved(position)
                 }
             }
         }
     }
+
+//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//        val item = items[position]
+//
+//        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+//        val justDate = dateFormat.format(item.administrationDate)
+//        holder.vaccAdminDatetv.text = "Administered on: $justDate"
+//
+//        holder.editButton.tag = item.historyId
+//
+//        holder.editButton.setOnClickListener {
+//            println(item.historyId)
+//            val calendar = Calendar.getInstance()
+//            calendar.time = item.administrationDate
+//            val year = calendar.get(Calendar.YEAR)
+//            val month = calendar.get(Calendar.MONTH)
+//            val day = calendar.get(Calendar.DAY_OF_MONTH)
+//
+//            DatePickerDialog(it.context, { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+//                val selectedDate = GregorianCalendar(selectedYear, selectedMonth, selectedDayOfMonth).time
+//                println(item.administrationDate)
+//                item.administrationDate = java.sql.Date(selectedDate.time)
+//                println(item.administrationDate)
+//                holder.vaccAdminDatetv.text = "Administered on: ${dateFormat.format(selectedDate)}"
+//
+//
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    val connection = DbConnect.getConnection()
+//                    val historyQueries = HistoryQueries(connection)
+//
+//                    items[position].historyId?.let { historyId ->
+//                        historyQueries.updateAdministrationDate(historyId, items[position].administrationDate)
+//                    }
+//                }
+//
+//                notifyItemChanged(position)
+//            }, year, month, day).show()
+//        }
+//
+//        holder.deleteButton.setOnClickListener {
+//            println(item.historyId)
+//            onDeleteClickListener.onDeleteClicked(item)
+//
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val connection = DbConnect.getConnection()
+//                val historyQueries = HistoryQueries(connection)
+//                historyQueries.deleteHistory(item.historyId!!)
+//
+//                CoroutineScope(Dispatchers.Main).launch {
+//                    items = items.filter { it.historyId != item.historyId }.toMutableList()
+//                    notifyItemRemoved(position)
+//                }
+//            }
+//        }
+//    }
 
     override fun getItemCount() = items.size
 
