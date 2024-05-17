@@ -7,5 +7,3 @@ data class VaccineHistoryItem(
     var vaccineName: String,
     var administrationDate: Date
 )
-//
-//

@@ -13,4 +13,3 @@ interface HistoryDAO {
     fun updateHistory(id: Int, history: History): Boolean
     fun deleteHistory(id: Int): Boolean
 }
-//

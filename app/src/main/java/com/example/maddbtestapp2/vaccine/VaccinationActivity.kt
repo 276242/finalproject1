@@ -110,7 +110,7 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
                 }
             }
             builder.setNegativeButton("Cancel") { dialogInterface, i ->
-                // User cancelled the dialog, no action needed
+
             }
 
             builder.show()
@@ -125,7 +125,7 @@ class VaccinationActivity : AppCompatActivity(), VaccineHistoryAdapter.OnDeleteC
             builder.setTitle("Add New Administration Date")
             builder.setView(dialogLayout)
             builder.setNegativeButton("Cancel") { dialogInterface, i ->
-                // User cancelled the dialog, no action needed
+
             }
 
 

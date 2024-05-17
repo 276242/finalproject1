@@ -1,5 +1,4 @@
 package com.example.maddbtestapp2
-
 import FirestoreRepository
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +6,9 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.maddbtestapp2.AddNewVaccActivity
+import com.example.maddbtestapp2.R
+import com.example.maddbtestapp2.ScheduleAppActivity
 import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.databaseConfig.DbConnect
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
@@ -33,11 +35,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        
 
-        // Add a user to the "users" collection
-        firestoreRepository.addUser("John Doe", "johndoe@example.com")
 
-        // Fetch all users from the "users" collection
         firestoreRepository.fetchUsers()
 
         recyclerView = findViewById(R.id.recyclerViewVacc)

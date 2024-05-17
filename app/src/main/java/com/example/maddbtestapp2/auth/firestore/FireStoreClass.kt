@@ -12,7 +12,7 @@ class FireStoreClass {
     private val mFireStore = FirebaseFirestore.getInstance()
 
     init {
-        // Enable offline persistence
+
         val settings = FirebaseFirestoreSettings.Builder()
             .setPersistenceEnabled(true)
             .build()

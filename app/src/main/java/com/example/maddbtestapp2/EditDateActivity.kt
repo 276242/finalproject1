@@ -62,7 +62,7 @@ class EditDateActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Show DatePickerDialog
+
         DatePickerDialog(this, this, year, month, day).show()
     }
 

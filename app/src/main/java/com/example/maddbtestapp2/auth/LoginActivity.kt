@@ -66,7 +66,7 @@ class LoginActivity : BaseActivity() {
                     if (task.isSuccessful) {
                         showErrorToast("Login successful!")
 
-                        // Start UserActivity to fetch users from Firebase and save to local database
+
                         val intent = Intent(this, UserActivity::class.java)
                         startActivity(intent)
                         finish()

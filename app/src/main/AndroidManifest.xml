@@ -22,8 +22,6 @@
         <activity
             android:name=".AddNewVaccActivity"
             android:exported="false" />
-<!--        <activity android:name=".notifications.NotificationActivity"-->
-<!--            android:exported="false"/>-->
         <activity
             android:name=".vaccine.VaccinationActivity"
             android:exported="false" />
@@ -35,23 +33,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-<!--        <activity android:name=".MainActivity"-->
-<!--            android:exported="false"/>-->
-<!--        <activity-->
-<!--            android:name=".auth.LoginActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
     </application>
 
