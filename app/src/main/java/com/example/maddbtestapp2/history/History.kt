@@ -5,3 +5,4 @@ data class History(
     var vaccineId: Int,
     var administeredDate: java.sql.Date
 )
+//

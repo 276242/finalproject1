@@ -51,7 +51,7 @@ class HistoryQueries(private val connection : Connection) : HistoryDAO {
         return -1
     }
 
-    override fun getDateAdministeredByVaccineId(vaccineId: Int): java.sql.Date? {
+    override fun getDateAdministeredByVaccineId(vaccineId: Int): Date? {
         val query = "SELECT `date_administered` FROM `history_table` WHERE `vaccine_id` = ?"
         val preparedStatement = connection.prepareStatement(query)
         preparedStatement.setInt(1, vaccineId)
@@ -62,7 +62,7 @@ class HistoryQueries(private val connection : Connection) : HistoryDAO {
         return null
     }
 
-    override fun getAllHistories(): Set<History?>? {
+    override fun getAllHistories(): Set<History?> {
         val query = "SELECT * FROM history_table"
         val preparedStatement = connection.prepareStatement(query)
         val resultSet = preparedStatement.executeQuery()
@@ -126,4 +126,3 @@ class HistoryQueries(private val connection : Connection) : HistoryDAO {
         return preparedStatement.executeUpdate() > 0
     }
 }
-//
