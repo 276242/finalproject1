@@ -1,5 +1,6 @@
 package com.example.maddbtestapp2
 
+import FirestoreRepository
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.databaseConfig.DbConnect
-import com.example.maddbtestapp2.user.UserActivity
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.Vaccines
 import com.example.maddbtestapp2.vaccine.VaccinesQueries
@@ -18,10 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.sql.Connection
 
-/**
- * Main activity displaying a list of vaccines.
- * Allows users to view existing vaccines and add new ones.
- */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -32,12 +28,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var connection: Connection
     private lateinit var vaccinesQueries: VaccinesQueries
 
+    private val firestoreRepository = FirestoreRepository()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val userActivity = UserActivity()
-        userActivity.fetchUsersFromFirebaseAndSaveToDatabase()
+        // Add a user to the "users" collection
+        firestoreRepository.addUser("John Doe", "johndoe@example.com")
+
+        // Fetch all users from the "users" collection
+        firestoreRepository.fetchUsers()
 
         recyclerView = findViewById(R.id.recyclerViewVacc)
         fabAddVaccine = findViewById(R.id.addNewAdmDateFAB)
@@ -81,9 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Navigates to MainActivity.
-     */
     private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
