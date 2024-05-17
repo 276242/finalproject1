@@ -1,8 +1,6 @@
 package com.example.maddbtestapp2.firestore
 
-import android.provider.ContactsContract.CommonDataKinds.Email
-
-class User(
+class UserFB(
     val id: String = "",
     val name: String = ""
 

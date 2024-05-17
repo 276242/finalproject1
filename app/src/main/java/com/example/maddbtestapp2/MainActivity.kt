@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.databaseConfig.DbConnect
+import com.example.maddbtestapp2.user.UserActivity
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.Vaccines
 import com.example.maddbtestapp2.vaccine.VaccinesQueries
@@ -34,6 +35,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val userActivity = UserActivity()
+        userActivity.fetchUsersFromFirebaseAndSaveToDatabase()
 
         recyclerView = findViewById(R.id.recyclerViewVacc)
         fabAddVaccine = findViewById(R.id.addNewVaccineFAB)

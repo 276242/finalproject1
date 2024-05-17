@@ -15,6 +15,7 @@ import com.example.maddbtestapp2.adapters.VaccinationAdapter
 import com.example.maddbtestapp2.appointment.Appointment
 import com.example.maddbtestapp2.appointment.AppointmentQueries
 import com.example.maddbtestapp2.databaseConfig.DbConnect
+import com.example.maddbtestapp2.notifications.NotificationActivity
 import com.example.maddbtestapp2.vaccine.VaccinationActivity
 import com.example.maddbtestapp2.vaccine.VaccinesQueries
 import kotlinx.coroutines.CoroutineScope
@@ -129,6 +130,7 @@ class ScheduleAppActivity : AppCompatActivity() {
         scheduleButton.setOnClickListener {
             goToScheduleActivity()
         }
+
 
     }
 

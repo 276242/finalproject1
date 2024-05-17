@@ -9,10 +9,9 @@ import android.widget.Toast
 import com.example.maddbtestapp2.BaseActivity
 import com.example.maddbtestapp2.R
 import com.example.maddbtestapp2.firestore.FireStoreClass
-import com.example.maddbtestapp2.firestore.User
+import com.example.maddbtestapp2.firestore.UserFB
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity : BaseActivity() {
 
@@ -116,7 +115,7 @@ class RegisterActivity : BaseActivity() {
                             true
                         )
 
-                        val user = User(
+                        val user = UserFB(
                             firebaseUser.uid,
                             name,
                         )
