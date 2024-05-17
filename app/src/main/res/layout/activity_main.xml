@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="668dp"
+        android:layout_width="409dp"
+        android:layout_height="673dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,11 +25,11 @@
             android:layout_height="59dp"
             android:layout_marginTop="584dp"
             android:layout_marginEnd="39dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
             android:gradientRadius="60dp"
             android:src="@drawable/baseline_add_24"
-            app:backgroundTint="@color/bg_black"
+            app:backgroundTint="@color/button_purple"
             app:borderWidth="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,40 +41,29 @@
             app:shapeAppearanceOverlay="@style/fab_rounded"
             app:tint="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="407dp"
-            android:layout_height="103dp"
-            android:layout_marginBottom="586dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewVacc"
+            android:layout_width="357dp"
+            android:layout_height="538dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="20dp"
+            android:background="#EBEBEB"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewVacc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/logo" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewVacc"
-            android:layout_width="408dp"
-            android:layout_height="499dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="50dp"
-            android:background="@color/bg_purple"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="398dp"
-            android:layout_height="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewVacc"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.444"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            app:layout_constraintVertical_bias="0.0" />
+            app:srcCompat="@drawable/immunify_banner" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

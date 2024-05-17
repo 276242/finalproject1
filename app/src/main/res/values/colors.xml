@@ -8,4 +8,7 @@
     <color name="bg_black">#191919</color>
     <color name="bg_grey">#C5C5C5</color>
     <color name="bg_purple">#F2E1FF</color>
+    <color name="back_white">#FFFDFD</color>
+    <color name="button_purple">#561497</color>
+    <color name="button_light_purple">#A556F2</color>
 </resources>
